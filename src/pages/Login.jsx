@@ -47,10 +47,16 @@ const Login = () => {
                 className="px-3 py-2 my-2 w-full bg-green-100 rounded-lg"
               />
             </div>
+            <div className="flex justify-between pt-2">
+              <div>
+                <input type="checkbox" />
+                Remember me
+              </div>
+              <p className="text-gray-500 text-center pb-4">Forgot password?</p>
+            </div>
             <button className="text-green-200 px-3 py-2 my-6 w-full bg-green-900 rounded-lg cursor-pointer hover:bg-green-700">
               Log in
             </button>
-            <p className="text-gray-500 text-center pb-4">Forgot password?</p>
             <p className="text-gray-500 text-center">
               Don't have an account?{" "}
               <Link to="/signup" className="text-green-900 font-bold">
