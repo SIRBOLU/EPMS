@@ -18,7 +18,7 @@ const Login = () => {
         </div>
         {/* Right hand side */}
         <div className="w-full md:w-1/2 flex flex-col items-center ">
-          <div className="w-1/2">
+          <div className="w-3/4">
             <div className="flex justify-center mb-6">
               <img src={logo} alt="logo" className="w-20 h-20 rounded-full" />
             </div>
