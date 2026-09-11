@@ -40,11 +40,11 @@ const Dashboard = ({ employees }) => {
           </div>
 
           <Link
-            to="/addemployee"
+            to="/manage-employees"
             className="bg-green-700 text-white px-5 py-3 rounded-lg
-                       font-semibold hover:bg-green-800 transition"
+             font-semibold hover:bg-green-800 transition"
           >
-            + Add Employee
+            Manage Employees
           </Link>
         </div>
 

@@ -1,13 +1,19 @@
-import { Link, useParams } from "react-router-dom";
-import { Mail, Phone, Building2, Briefcase, ArrowLeft } from "lucide-react";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 
-// import employeeData from "../data/employeeData";
+import { Mail, Phone, Building2, Briefcase, ArrowLeft } from "lucide-react";
 
 const EmployeeProfile = ({ employees }) => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   // Find the employee whose ID matches the URL
   const employee = employees.find((employee) => employee.id === id);
+
+  // Where should the Back button go?
+  // If we came from Manage Employees, go there.
+  // Otherwise, go to the Employee Directory.
+  const backPath = location.state?.from || "/employees";
 
   // If employee doesn't exist
   if (!employee) {
@@ -22,14 +28,15 @@ const EmployeeProfile = ({ employees }) => {
             The employee you are looking for does not exist.
           </p>
 
-          <Link
-            to="/employees"
-            className="inline-block mt-5 bg-green-700 text-white
-                       px-5 py-3 rounded-lg font-semibold
-                       hover:bg-green-800 transition"
+          <button
+            onClick={() => navigate(backPath)}
+            className="inline-flex items-center gap-2 mt-5
+                       text-green-700 font-semibold
+                       hover:text-green-800 transition"
           >
-            Back to Employees
-          </Link>
+            <ArrowLeft size={18} />
+            Back
+          </button>
         </div>
       </div>
     );
@@ -39,35 +46,32 @@ const EmployeeProfile = ({ employees }) => {
     <div className="min-h-screen bg-gray-50 px-6 py-8">
       <div className="max-w-5xl mx-auto">
         {/* Back Button */}
-        <Link
-          to="/employees"
-          className="inline-flex items-center gap-2 text-green-700
-                     font-medium hover:text-green-900 transition"
+        <button
+          onClick={() => navigate(backPath)}
+          className="inline-flex items-center gap-2
+                     text-green-700 font-medium
+                     hover:text-green-900 transition"
         >
           <ArrowLeft size={18} />
-          Back to Employees
-        </Link>
+          Back
+        </button>
 
         {/* Profile Header */}
         <div
           className="bg-white rounded-2xl shadow-sm border border-gray-100
-                        overflow-hidden mt-6"
+                     overflow-hidden mt-6"
         >
-          {/* Green Cover */}
           <div className="h-36 bg-green-700"></div>
 
-          {/* Profile Information */}
           <div className="px-6 pb-8">
             <div className="flex flex-col md:flex-row md:items-end gap-5 -mt-16">
-              {/* Profile Image */}
               <img
-                src={employee.image}
+                src={employee.image || "/avatar.jpg"}
                 alt={employee.name}
                 className="w-32 h-32 rounded-full object-cover
                            border-4 border-white shadow-lg"
               />
 
-              {/* Name and Position */}
               <div className="flex-1 pb-2">
                 <h1 className="text-3xl font-bold text-gray-900">
                   {employee.name}
@@ -82,15 +86,15 @@ const EmployeeProfile = ({ employees }) => {
                 </p>
               </div>
 
-              {/* Status */}
               <div className="pb-3">
                 <span
-                  className={`px-4 py-2 rounded-full text-sm font-semibold
-                    ${
-                      employee.status === "Active"
-                        ? "bg-green-100 text-green-700"
-                        : "bg-yellow-100 text-yellow-700"
-                    }`}
+                  className={`px-4 py-2 rounded-full text-sm font-semibold ${
+                    employee.status === "Active"
+                      ? "bg-green-100 text-green-700"
+                      : employee.status === "On Leave"
+                        ? "bg-yellow-100 text-yellow-700"
+                        : "bg-red-100 text-red-700"
+                  }`}
                 >
                   ● {employee.status}
                 </span>
@@ -104,13 +108,14 @@ const EmployeeProfile = ({ employees }) => {
           {/* Contact Information */}
           <div
             className="bg-white rounded-2xl border border-gray-100
-                          shadow-sm p-6"
+                       shadow-sm p-6"
           >
             <h2 className="text-xl font-bold text-gray-900">
               Contact Information
             </h2>
 
             <div className="mt-5 space-y-5">
+              {/* Email */}
               <div className="flex items-center gap-4">
                 <div className="bg-green-100 text-green-700 p-3 rounded-lg">
                   <Mail size={20} />
@@ -123,6 +128,7 @@ const EmployeeProfile = ({ employees }) => {
                 </div>
               </div>
 
+              {/* Phone */}
               <div className="flex items-center gap-4">
                 <div className="bg-green-100 text-green-700 p-3 rounded-lg">
                   <Phone size={20} />
@@ -140,13 +146,14 @@ const EmployeeProfile = ({ employees }) => {
           {/* Employment Information */}
           <div
             className="bg-white rounded-2xl border border-gray-100
-                          shadow-sm p-6"
+                       shadow-sm p-6"
           >
             <h2 className="text-xl font-bold text-gray-900">
               Employment Information
             </h2>
 
             <div className="mt-5 space-y-5">
+              {/* Department */}
               <div className="flex items-center gap-4">
                 <div className="bg-green-100 text-green-700 p-3 rounded-lg">
                   <Building2 size={20} />
@@ -161,6 +168,7 @@ const EmployeeProfile = ({ employees }) => {
                 </div>
               </div>
 
+              {/* Position */}
               <div className="flex items-center gap-4">
                 <div className="bg-green-100 text-green-700 p-3 rounded-lg">
                   <Briefcase size={20} />

@@ -47,12 +47,19 @@ const EditEmployee = ({ employees, setEmployees }) => {
       ),
     );
 
-    navigate(`/employees/${id}`);
+    // After saving, go to the employee profile
+    // and remember that we came from Manage Employees.
+    navigate(`/employees/${id}`, {
+      state: {
+        from: "/manage-employees",
+      },
+    });
   };
 
   return (
     <div className="min-h-screen bg-gray-50 px-6 py-10">
       <div className="max-w-3xl mx-auto">
+        {/* Back Button */}
         <button
           onClick={() => navigate(`/employees/${id}`)}
           className="mb-6 text-green-700 font-semibold hover:text-green-800"
@@ -68,7 +75,7 @@ const EditEmployee = ({ employees, setEmployees }) => {
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Name */}
+            {/* Full Name */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Full Name

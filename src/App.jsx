@@ -12,6 +12,9 @@ import EmployeeProfile from "./pages/EmployeeProfile";
 import employeeData from "./data/employeeData";
 import EditEmployee from "./pages/EditEmployee";
 import Dashboard from "./pages/Dashboard";
+import ManageEmployee from "./pages/ManageEmployee";
+import Features from "./pages/Features";
+// import { Features } from "tailwindcss";
 
 const App = () => {
   const [employees, setEmployees] = useState(() => {
@@ -32,12 +35,7 @@ const App = () => {
         <Route path="/about" element={<About />} />
         {/* <Route path="/employees" element={<Employee />} /> */}
         {/* <Route path="/employees" element={<Employee employees={employees} />} /> */}
-        <Route
-          path="/employees"
-          element={
-            <Employee employees={employees} setEmployees={setEmployees} />
-          }
-        />
+        <Route path="/employees" element={<Employee employees={employees} />} />
         {/* <Route path="/addemployee" element={<AddEmployee />} /> */}
         <Route
           path="/addemployee"
@@ -57,6 +55,13 @@ const App = () => {
           path="/dashboard"
           element={<Dashboard employees={employees} />}
         />
+        <Route
+          path="/manage-employees"
+          element={
+            <ManageEmployee employees={employees} setEmployees={setEmployees} />
+          }
+        />
+        <Route path="/features" element={<Features />} />
       </Routes>
     </div>
   );

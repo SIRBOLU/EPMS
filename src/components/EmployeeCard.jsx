@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone } from "lucide-react";
 
-const EmployeeCard = ({ employee, onDelete }) => {
+const EmployeeCard = ({ employee }) => {
   return (
     <div
       className="bg-white rounded-2xl border border-gray-100
@@ -70,24 +70,6 @@ const EmployeeCard = ({ employee, onDelete }) => {
         >
           View Profile →
         </Link>
-
-        <Link
-          to={`/employees/${employee.id}/edit`}
-          className="block mt-2 border border-green-200 text-green-700
-             py-2.5 rounded-lg font-semibold
-             hover:bg-green-50 transition"
-        >
-          Edit Employee
-        </Link>
-
-        <button
-          onClick={() => onDelete(employee.id)}
-          className="w-full mt-2 border border-red-200 text-red-600
-             py-2.5 rounded-lg font-semibold
-             hover:bg-red-50 transition"
-        >
-          Delete Employee
-        </button>
       </div>
     </div>
   );
