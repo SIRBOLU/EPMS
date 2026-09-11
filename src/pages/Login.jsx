@@ -68,7 +68,7 @@ const Login = () => {
                 type="submit"
                 className="text-green-200 px-3 py-2 my-6 w-full bg-green-900 rounded-lg cursor-pointer hover:bg-green-700"
               >
-                Log in
+                <Link to="/home">Log in</Link>
               </button>
             </form>
 
