@@ -9,9 +9,8 @@ const ScrollReveal = ({ children, className = "", delay = 0 }) => {
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-
-          // Stop observing after the animation happens
-          observer.unobserve(entry.target);
+        } else {
+          setIsVisible(false);
         }
       },
       {
@@ -23,17 +22,13 @@ const ScrollReveal = ({ children, className = "", delay = 0 }) => {
       observer.observe(elementRef.current);
     }
 
-    return () => {
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (
     <div
       ref={elementRef}
-      style={{
-        transitionDelay: `${delay}ms`,
-      }}
+      style={{ transitionDelay: `${delay}ms` }}
       className={`
         transition-all duration-700 ease-out
         ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import ScrollReveal from "../components/ScrollReveal";
 import { Link } from "react-router-dom";
@@ -11,12 +12,46 @@ import {
   BarChart3,
   ArrowRight,
   CheckCircle,
+  Moon,
+  Sun,
 } from "lucide-react";
 
 const Home = () => {
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem("epmsDarkMode") === "true";
+  });
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("epmsDarkMode", "true");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("epmsDarkMode", "false");
+    }
+  }, [darkMode]);
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
       <Navbar />
+
+      {/* THEME TOGGLE */}
+      <button
+        type="button"
+        onClick={() => setDarkMode(!darkMode)}
+        className="fixed top-24 right-5 z-40
+                   p-2.5 rounded-full
+                   bg-white dark:bg-gray-800
+                   border border-gray-200 dark:border-gray-700
+                   text-gray-600 dark:text-gray-300
+                   hover:bg-green-50 dark:hover:bg-gray-700
+                   hover:text-green-700 dark:hover:text-green-400
+                   shadow-sm transition-all duration-200"
+        aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+        title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+      >
+        {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+      </button>
 
       {/* HERO SECTION */}
       <section className="bg-gradient-to-br from-green-950 via-green-900 to-green-700 text-white overflow-hidden">
@@ -44,7 +79,7 @@ const Home = () => {
 
                 <div className="flex flex-col sm:flex-row gap-4 mt-8">
                   <Link
-                    to="/dashboard"
+                    to="/login"
                     className="inline-flex items-center justify-center gap-2
                                bg-white text-green-900 px-6 py-3 rounded-lg
                                font-semibold hover:bg-green-50
@@ -55,7 +90,7 @@ const Home = () => {
                   </Link>
 
                   <Link
-                    to="/employees"
+                    to="/login"
                     className="inline-flex items-center justify-center
                                border border-green-300 text-white
                                px-6 py-3 rounded-lg font-semibold
@@ -87,12 +122,14 @@ const Home = () => {
                              shadow-2xl"
                 >
                   {/* MOCK DASHBOARD */}
-                  <div className="bg-white rounded-2xl p-5 shadow-xl">
+                  <div className="bg-white dark:bg-gray-900 rounded-2xl p-5 shadow-xl">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-xs text-gray-500">EPMS Dashboard</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          EPMS Dashboard
+                        </p>
 
-                        <h2 className="text-xl font-bold text-gray-900 mt-1">
+                        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-1">
                           Workforce Overview
                         </h2>
                       </div>
@@ -107,34 +144,42 @@ const Home = () => {
                     </div>
 
                     <div className="grid grid-cols-2 gap-3 mt-5">
-                      <div className="bg-gray-50 rounded-xl p-4">
-                        <p className="text-xs text-gray-500">Employees</p>
+                      <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4">
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          Employees
+                        </p>
 
-                        <p className="text-2xl font-bold text-gray-900 mt-1">
+                        <p className="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-1">
                           120
                         </p>
                       </div>
 
-                      <div className="bg-green-50 rounded-xl p-4">
-                        <p className="text-xs text-green-700">Active</p>
+                      <div className="bg-green-50 dark:bg-green-950/40 rounded-xl p-4">
+                        <p className="text-xs text-green-700 dark:text-green-400">
+                          Active
+                        </p>
 
-                        <p className="text-2xl font-bold text-green-700 mt-1">
+                        <p className="text-2xl font-bold text-green-700 dark:text-green-400 mt-1">
                           96
                         </p>
                       </div>
 
-                      <div className="bg-yellow-50 rounded-xl p-4">
-                        <p className="text-xs text-yellow-700">On Leave</p>
+                      <div className="bg-yellow-50 dark:bg-yellow-950/40 rounded-xl p-4">
+                        <p className="text-xs text-yellow-700 dark:text-yellow-400">
+                          On Leave
+                        </p>
 
-                        <p className="text-2xl font-bold text-yellow-700 mt-1">
+                        <p className="text-2xl font-bold text-yellow-700 dark:text-yellow-400 mt-1">
                           12
                         </p>
                       </div>
 
-                      <div className="bg-blue-50 rounded-xl p-4">
-                        <p className="text-xs text-blue-700">Departments</p>
+                      <div className="bg-blue-50 dark:bg-blue-950/40 rounded-xl p-4">
+                        <p className="text-xs text-blue-700 dark:text-blue-400">
+                          Departments
+                        </p>
 
-                        <p className="text-2xl font-bold text-blue-700 mt-1">
+                        <p className="text-2xl font-bold text-blue-700 dark:text-blue-400 mt-1">
                           8
                         </p>
                       </div>
@@ -142,11 +187,14 @@ const Home = () => {
 
                     <div className="mt-5">
                       <div className="flex items-center justify-between">
-                        <p className="text-sm font-semibold text-gray-800">
+                        <p className="text-sm font-semibold text-gray-800 dark:text-gray-200">
                           Employee Activity
                         </p>
 
-                        <BarChart3 size={18} className="text-green-700" />
+                        <BarChart3
+                          size={18}
+                          className="text-green-700 dark:text-green-400"
+                        />
                       </div>
 
                       <div className="flex items-end gap-2 h-24 mt-4">
@@ -168,62 +216,94 @@ const Home = () => {
       </section>
 
       {/* QUICK STATS */}
-      <section className="bg-white py-12 border-b border-gray-100">
+      <section className="bg-white dark:bg-gray-900 py-12 border-b border-gray-100 dark:border-gray-800">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-5">
             <ScrollReveal delay={0}>
               <div
                 className="text-center p-5 rounded-2xl
-                           hover:bg-green-50 hover:-translate-y-1
+                           hover:bg-green-50 dark:hover:bg-green-950/30
+                           hover:-translate-y-1
                            transition-all duration-300"
               >
-                <Users size={25} className="mx-auto text-green-700" />
+                <Users
+                  size={25}
+                  className="mx-auto text-green-700 dark:text-green-400"
+                />
 
-                <p className="text-3xl font-bold text-gray-900 mt-3">120</p>
+                <p className="text-3xl font-bold text-gray-900 dark:text-gray-100 mt-3">
+                  120
+                </p>
 
-                <p className="text-sm text-gray-500 mt-1">Total Employees</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                  Total Employees
+                </p>
               </div>
             </ScrollReveal>
 
             <ScrollReveal delay={100}>
               <div
                 className="text-center p-5 rounded-2xl
-                           hover:bg-green-50 hover:-translate-y-1
+                           hover:bg-green-50 dark:hover:bg-green-950/30
+                           hover:-translate-y-1
                            transition-all duration-300"
               >
-                <CheckCircle size={25} className="mx-auto text-green-700" />
+                <CheckCircle
+                  size={25}
+                  className="mx-auto text-green-700 dark:text-green-400"
+                />
 
-                <p className="text-3xl font-bold text-green-700 mt-3">96</p>
+                <p className="text-3xl font-bold text-green-700 dark:text-green-400 mt-3">
+                  96
+                </p>
 
-                <p className="text-sm text-gray-500 mt-1">Active Employees</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                  Active Employees
+                </p>
               </div>
             </ScrollReveal>
 
             <ScrollReveal delay={200}>
               <div
                 className="text-center p-5 rounded-2xl
-                           hover:bg-green-50 hover:-translate-y-1
+                           hover:bg-green-50 dark:hover:bg-green-950/30
+                           hover:-translate-y-1
                            transition-all duration-300"
               >
-                <BarChart3 size={25} className="mx-auto text-blue-600" />
+                <BarChart3
+                  size={25}
+                  className="mx-auto text-blue-600 dark:text-blue-400"
+                />
 
-                <p className="text-3xl font-bold text-blue-600 mt-3">8</p>
+                <p className="text-3xl font-bold text-blue-600 dark:text-blue-400 mt-3">
+                  8
+                </p>
 
-                <p className="text-sm text-gray-500 mt-1">Departments</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                  Departments
+                </p>
               </div>
             </ScrollReveal>
 
             <ScrollReveal delay={300}>
               <div
                 className="text-center p-5 rounded-2xl
-                           hover:bg-green-50 hover:-translate-y-1
+                           hover:bg-green-50 dark:hover:bg-green-950/30
+                           hover:-translate-y-1
                            transition-all duration-300"
               >
-                <UserRound size={25} className="mx-auto text-yellow-600" />
+                <UserRound
+                  size={25}
+                  className="mx-auto text-yellow-600 dark:text-yellow-400"
+                />
 
-                <p className="text-3xl font-bold text-yellow-600 mt-3">12</p>
+                <p className="text-3xl font-bold text-yellow-600 dark:text-yellow-400 mt-3">
+                  12
+                </p>
 
-                <p className="text-sm text-gray-500 mt-1">Employees on Leave</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                  Employees on Leave
+                </p>
               </div>
             </ScrollReveal>
           </div>
@@ -231,19 +311,19 @@ const Home = () => {
       </section>
 
       {/* WHY EPMS */}
-      <section className="py-16 md:py-20">
+      <section className="py-16 md:py-20 bg-gray-50 dark:bg-gray-950">
         <div className="max-w-7xl mx-auto px-6">
           <ScrollReveal>
             <div className="max-w-3xl mx-auto text-center">
-              <p className="text-green-700 font-semibold uppercase tracking-wide">
+              <p className="text-green-700 dark:text-green-400 font-semibold uppercase tracking-wide">
                 Why EPMS?
               </p>
 
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-3">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mt-3">
                 Everything your team needs in one place.
               </h2>
 
-              <p className="text-gray-600 mt-5 leading-relaxed">
+              <p className="text-gray-600 dark:text-gray-400 mt-5 leading-relaxed">
                 EPMS removes the complexity of managing employee information by
                 bringing essential workforce tools together in one organized
                 platform.
@@ -254,25 +334,25 @@ const Home = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
             <ScrollReveal delay={0}>
               <div
-                className="bg-white border border-gray-100
+                className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800
                            rounded-2xl p-7 h-full shadow-sm
                            hover:-translate-y-2 hover:shadow-xl
-                           hover:border-green-100
+                           hover:border-green-100 dark:hover:border-green-900
                            transition-all duration-500"
               >
                 <div
-                  className="w-13 h-13 w-14 h-14 bg-green-100
-                             text-green-700 rounded-xl
+                  className="w-13 h-13 w-14 h-14 bg-green-100 dark:bg-green-950/50
+                             text-green-700 dark:text-green-400 rounded-xl
                              flex items-center justify-center"
                 >
                   <Users size={25} />
                 </div>
 
-                <h3 className="text-xl font-bold text-gray-900 mt-6">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-6">
                   Centralized Records
                 </h3>
 
-                <p className="text-gray-600 mt-3 leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-400 mt-3 leading-relaxed">
                   Keep important employee information organized and accessible
                   from one central system.
                 </p>
@@ -281,24 +361,24 @@ const Home = () => {
 
             <ScrollReveal delay={100}>
               <div
-                className="bg-white border border-gray-100
+                className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800
                            rounded-2xl p-7 h-full shadow-sm
                            hover:-translate-y-2 hover:shadow-xl
-                           hover:border-green-100
+                           hover:border-green-100 dark:hover:border-green-900
                            transition-all duration-500"
               >
                 <div
-                  className="w-14 h-14 bg-green-100 text-green-700
+                  className="w-14 h-14 bg-green-100 dark:bg-green-950/50 text-green-700 dark:text-green-400
                              rounded-xl flex items-center justify-center"
                 >
                   <Search size={25} />
                 </div>
 
-                <h3 className="text-xl font-bold text-gray-900 mt-6">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-6">
                   Fast Search
                 </h3>
 
-                <p className="text-gray-600 mt-3 leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-400 mt-3 leading-relaxed">
                   Find employee information quickly using names, IDs, emails,
                   positions, and departments.
                 </p>
@@ -307,24 +387,24 @@ const Home = () => {
 
             <ScrollReveal delay={200}>
               <div
-                className="bg-white border border-gray-100
+                className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800
                            rounded-2xl p-7 h-full shadow-sm
                            hover:-translate-y-2 hover:shadow-xl
-                           hover:border-green-100
+                           hover:border-green-100 dark:hover:border-green-900
                            transition-all duration-500"
               >
                 <div
-                  className="w-14 h-14 bg-green-100 text-green-700
+                  className="w-14 h-14 bg-green-100 dark:bg-green-950/50 text-green-700 dark:text-green-400
                              rounded-xl flex items-center justify-center"
                 >
                   <UserRound size={25} />
                 </div>
 
-                <h3 className="text-xl font-bold text-gray-900 mt-6">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-6">
                   Clear Profiles
                 </h3>
 
-                <p className="text-gray-600 mt-3 leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-400 mt-3 leading-relaxed">
                   Access structured employee profiles containing essential
                   contact and employment information.
                 </p>
@@ -333,24 +413,24 @@ const Home = () => {
 
             <ScrollReveal delay={300}>
               <div
-                className="bg-white border border-gray-100
+                className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800
                            rounded-2xl p-7 h-full shadow-sm
                            hover:-translate-y-2 hover:shadow-xl
-                           hover:border-green-100
+                           hover:border-green-100 dark:hover:border-green-900
                            transition-all duration-500"
               >
                 <div
-                  className="w-14 h-14 bg-green-100 text-green-700
+                  className="w-14 h-14 bg-green-100 dark:bg-green-950/50 text-green-700 dark:text-green-400
                              rounded-xl flex items-center justify-center"
                 >
                   <ShieldCheck size={25} />
                 </div>
 
-                <h3 className="text-xl font-bold text-gray-900 mt-6">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-6">
                   Controlled Management
                 </h3>
 
-                <p className="text-gray-600 mt-3 leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-400 mt-3 leading-relaxed">
                   Keep employee viewing and administrative management functions
                   organized within the system.
                 </p>
@@ -362,18 +442,18 @@ const Home = () => {
 
       {/* HOW IT WORKS */}
       <ScrollReveal>
-        <section className="bg-white py-16 md:py-20">
+        <section className="bg-white dark:bg-gray-900 py-16 md:py-20">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center max-w-3xl mx-auto">
-              <p className="text-green-700 font-semibold uppercase tracking-wide">
+              <p className="text-green-700 dark:text-green-400 font-semibold uppercase tracking-wide">
                 How EPMS Works
               </p>
 
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-3">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mt-3">
                 Simple from start to finish.
               </h2>
 
-              <p className="text-gray-600 mt-4 leading-relaxed">
+              <p className="text-gray-600 dark:text-gray-400 mt-4 leading-relaxed">
                 EPMS keeps the employee management process straightforward,
                 allowing users to move from finding an employee to viewing their
                 information with just a few steps.
@@ -409,27 +489,27 @@ const Home = () => {
               ].map((step, index) => (
                 <ScrollReveal key={step.number} delay={index * 100}>
                   <div
-                    className="relative bg-gray-50 border border-gray-100
+                    className="relative bg-gray-50 dark:bg-gray-800 border border-gray-100 dark:border-gray-700
                                rounded-2xl p-7 h-full
                                hover:-translate-y-2 hover:shadow-lg
                                transition-all duration-500"
                   >
-                    <span className="text-green-700 font-bold text-sm">
+                    <span className="text-green-700 dark:text-green-400 font-bold text-sm">
                       STEP {step.number}
                     </span>
 
-                    <h3 className="text-xl font-bold text-gray-900 mt-4">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-4">
                       {step.title}
                     </h3>
 
-                    <p className="text-gray-600 mt-3 leading-relaxed">
+                    <p className="text-gray-600 dark:text-gray-400 mt-3 leading-relaxed">
                       {step.description}
                     </p>
 
                     {index < 3 && (
                       <div
                         className="hidden md:block absolute top-1/2
-                                   -right-4 text-green-300 text-2xl"
+                                   -right-4 text-green-300 dark:text-green-500 text-2xl"
                       >
                         →
                       </div>
@@ -443,21 +523,21 @@ const Home = () => {
       </ScrollReveal>
 
       {/* FEATURE HIGHLIGHT */}
-      <section className="py-16 md:py-20">
+      <section className="py-16 md:py-20 bg-gray-50 dark:bg-gray-950">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <ScrollReveal>
               <div>
-                <p className="text-green-700 font-semibold uppercase tracking-wide">
+                <p className="text-green-700 dark:text-green-400 font-semibold uppercase tracking-wide">
                   Built for productivity
                 </p>
 
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-3">
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mt-3">
                   Spend less time managing records and more time managing
                   people.
                 </h2>
 
-                <p className="text-gray-600 mt-5 leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-400 mt-5 leading-relaxed">
                   Whether you need to find an employee's contact information,
                   check their department, review their status, or update their
                   record, EPMS keeps the process simple and organized.
@@ -467,10 +547,10 @@ const Home = () => {
                   <div className="flex items-start gap-3">
                     <CheckCircle
                       size={21}
-                      className="text-green-700 mt-1 shrink-0"
+                      className="text-green-700 dark:text-green-400 mt-1 shrink-0"
                     />
 
-                    <p className="text-gray-700">
+                    <p className="text-gray-700 dark:text-gray-300">
                       Quick access to employee information
                     </p>
                   </div>
@@ -478,10 +558,10 @@ const Home = () => {
                   <div className="flex items-start gap-3">
                     <CheckCircle
                       size={21}
-                      className="text-green-700 mt-1 shrink-0"
+                      className="text-green-700 dark:text-green-400 mt-1 shrink-0"
                     />
 
-                    <p className="text-gray-700">
+                    <p className="text-gray-700 dark:text-gray-300">
                       Simple employee record management
                     </p>
                   </div>
@@ -489,10 +569,10 @@ const Home = () => {
                   <div className="flex items-start gap-3">
                     <CheckCircle
                       size={21}
-                      className="text-green-700 mt-1 shrink-0"
+                      className="text-green-700 dark:text-green-400 mt-1 shrink-0"
                     />
 
-                    <p className="text-gray-700">
+                    <p className="text-gray-700 dark:text-gray-300">
                       Responsive experience across devices
                     </p>
                   </div>
@@ -500,20 +580,20 @@ const Home = () => {
                   <div className="flex items-start gap-3">
                     <CheckCircle
                       size={21}
-                      className="text-green-700 mt-1 shrink-0"
+                      className="text-green-700 dark:text-green-400 mt-1 shrink-0"
                     />
 
-                    <p className="text-gray-700">
+                    <p className="text-gray-700 dark:text-gray-300">
                       Clear workforce statistics and insights
                     </p>
                   </div>
                 </div>
 
                 <Link
-                  to="/features"
+                  to="/login"
                   className="inline-flex items-center gap-2
-                             mt-8 text-green-700 font-semibold
-                             hover:text-green-900 group"
+                             mt-8 text-green-700 dark:text-green-400 font-semibold
+                             hover:text-green-900 dark:hover:text-green-300 group"
                 >
                   Explore all features
                   <ArrowRight
@@ -598,7 +678,7 @@ const Home = () => {
 
             <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8">
               <Link
-                to="/dashboard"
+                to="/login"
                 className="bg-white text-green-900 px-6 py-3
                            rounded-lg font-semibold
                            hover:bg-green-50 hover:-translate-y-1
@@ -608,7 +688,7 @@ const Home = () => {
               </Link>
 
               <Link
-                to="/employees"
+                to="/login"
                 className="border border-green-300 text-white
                            px-6 py-3 rounded-lg font-semibold
                            hover:bg-green-800 hover:-translate-y-1

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import ScrollReveal from "../components/ScrollReveal";
 import { Link } from "react-router-dom";
@@ -15,9 +16,26 @@ import {
   ShieldCheck,
   Smartphone,
   Database,
+  Moon,
+  Sun,
 } from "lucide-react";
 
 const Features = () => {
+  // Dark / Light Mode
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem("epmsDarkMode") === "true";
+  });
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("epmsDarkMode", "true");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("epmsDarkMode", "false");
+    }
+  }, [darkMode]);
+
   const features = [
     {
       icon: Users,
@@ -94,8 +112,26 @@ const Features = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
       <Navbar />
+
+      {/* THEME TOGGLE */}
+      <button
+        type="button"
+        onClick={() => setDarkMode(!darkMode)}
+        className="fixed top-24 right-5 z-40
+                   p-2.5 rounded-full
+                   bg-white dark:bg-gray-800
+                   border border-gray-200 dark:border-gray-700
+                   text-gray-600 dark:text-gray-300
+                   hover:bg-green-50 dark:hover:bg-gray-700
+                   hover:text-green-700 dark:hover:text-green-400
+                   shadow-sm transition-all duration-200"
+        aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+        title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+      >
+        {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+      </button>
 
       {/* HERO SECTION */}
       <section className="bg-gradient-to-br from-green-950 via-green-900 to-green-700 text-white">
@@ -143,19 +179,19 @@ const Features = () => {
       </section>
 
       {/* FEATURE INTRO */}
-      <section className="bg-white py-16 md:py-20">
+      <section className="bg-white dark:bg-gray-900 py-16 md:py-20 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-6">
           <ScrollReveal>
             <div className="max-w-3xl mx-auto text-center">
-              <p className="text-green-700 font-semibold uppercase tracking-wide">
+              <p className="text-green-700 dark:text-green-400 font-semibold uppercase tracking-wide">
                 Built for simplicity
               </p>
 
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-3">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mt-3">
                 Powerful features without unnecessary complexity.
               </h2>
 
-              <p className="text-gray-600 mt-5 leading-relaxed">
+              <p className="text-gray-600 dark:text-gray-400 mt-5 leading-relaxed">
                 EPMS is designed around the everyday tasks involved in employee
                 management. Each feature has a clear purpose: helping users find
                 information faster, manage records efficiently, and understand
@@ -172,17 +208,21 @@ const Features = () => {
               return (
                 <ScrollReveal key={feature.title} delay={(index % 3) * 100}>
                   <div
-                    className="group bg-gray-50 border border-gray-100
+                    className="group bg-gray-50 dark:bg-gray-950
+                               border border-gray-100 dark:border-gray-800
                                rounded-2xl p-7 h-full
-                               hover:bg-white hover:-translate-y-2
-                               hover:shadow-xl hover:border-green-100
+                               hover:bg-white dark:hover:bg-gray-900
+                               hover:-translate-y-2
+                               hover:shadow-xl
+                               hover:border-green-100 dark:hover:border-green-900
                                transition-all duration-500"
                   >
                     <div className="flex items-start justify-between">
                       <div
-                        className="w-12 h-12 rounded-xl bg-green-100
-                                   text-green-700 flex items-center
-                                   justify-center
+                        className="w-12 h-12 rounded-xl
+                                   bg-green-100 dark:bg-green-950/60
+                                   text-green-700 dark:text-green-400
+                                   flex items-center justify-center
                                    group-hover:bg-green-700
                                    group-hover:text-white
                                    group-hover:scale-110
@@ -192,18 +232,20 @@ const Features = () => {
                       </div>
 
                       <span
-                        className="text-sm font-bold text-green-700
-                                   bg-green-50 px-3 py-1 rounded-full"
+                        className="text-sm font-bold
+                                   text-green-700 dark:text-green-400
+                                   bg-green-50 dark:bg-green-950/60
+                                   px-3 py-1 rounded-full"
                       >
                         {String(index + 1).padStart(2, "0")}
                       </span>
                     </div>
 
-                    <h3 className="text-xl font-bold text-gray-900 mt-6">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-6">
                       {feature.title}
                     </h3>
 
-                    <p className="text-gray-600 mt-3 leading-relaxed">
+                    <p className="text-gray-600 dark:text-gray-400 mt-3 leading-relaxed">
                       {feature.description}
                     </p>
                   </div>
@@ -216,27 +258,28 @@ const Features = () => {
 
       {/* EMPLOYEE DIRECTORY */}
       <ScrollReveal>
-        <section className="py-16 md:py-20">
+        <section className="py-16 md:py-20 bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
           <div className="max-w-7xl mx-auto px-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
                 <div
-                  className="w-14 h-14 rounded-2xl bg-green-100
-                             text-green-700 flex items-center
-                             justify-center"
+                  className="w-14 h-14 rounded-2xl
+                             bg-green-100 dark:bg-green-950/60
+                             text-green-700 dark:text-green-400
+                             flex items-center justify-center"
                 >
                   <Users size={28} />
                 </div>
 
-                <p className="text-green-700 font-semibold uppercase tracking-wide mt-6">
+                <p className="text-green-700 dark:text-green-400 font-semibold uppercase tracking-wide mt-6">
                   Employee Directory
                 </p>
 
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-3">
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mt-3">
                   Find employee information quickly.
                 </h2>
 
-                <p className="text-gray-600 mt-5 leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-400 mt-5 leading-relaxed">
                   The Employee Directory gives users a clean view of employee
                   records. Search through employees and filter the results to
                   quickly locate the person or information you need.
@@ -244,16 +287,16 @@ const Features = () => {
 
                 <div className="space-y-4 mt-7">
                   <div className="flex items-start gap-3">
-                    <div className="mt-1 text-green-700">
+                    <div className="mt-1 text-green-700 dark:text-green-400">
                       <Search size={19} />
                     </div>
 
                     <div>
-                      <h3 className="font-semibold text-gray-900">
+                      <h3 className="font-semibold text-gray-900 dark:text-gray-100">
                         Search employee records
                       </h3>
 
-                      <p className="text-gray-600 text-sm mt-1">
+                      <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
                         Search using names, IDs, emails, positions, or
                         departments.
                       </p>
@@ -261,16 +304,16 @@ const Features = () => {
                   </div>
 
                   <div className="flex items-start gap-3">
-                    <div className="mt-1 text-green-700">
+                    <div className="mt-1 text-green-700 dark:text-green-400">
                       <Filter size={19} />
                     </div>
 
                     <div>
-                      <h3 className="font-semibold text-gray-900">
+                      <h3 className="font-semibold text-gray-900 dark:text-gray-100">
                         Filter your results
                       </h3>
 
-                      <p className="text-gray-600 text-sm mt-1">
+                      <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
                         Narrow records down by department or employee status.
                       </p>
                     </div>
@@ -291,28 +334,43 @@ const Features = () => {
 
               <div
                 className="bg-gradient-to-br from-green-50 to-white
-                           border border-green-100 rounded-3xl p-8
-                           shadow-sm"
+                           dark:from-green-950/50 dark:to-gray-900
+                           border border-green-100 dark:border-green-900
+                           rounded-3xl p-8 shadow-sm"
               >
-                <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
+                <div
+                  className="bg-white dark:bg-gray-800
+                             rounded-2xl shadow-lg
+                             border border-gray-100 dark:border-gray-700
+                             p-6"
+                >
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-gray-500 dark:text-gray-400">
                         Employee Directory
                       </p>
 
-                      <h3 className="text-2xl font-bold text-gray-900 mt-1">
+                      <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-1">
                         120 Employees
                       </h3>
                     </div>
 
-                    <div className="w-12 h-12 rounded-xl bg-green-100 text-green-700 flex items-center justify-center">
+                    <div
+                      className="w-12 h-12 rounded-xl
+                                 bg-green-100 dark:bg-green-950/60
+                                 text-green-700 dark:text-green-400
+                                 flex items-center justify-center"
+                    >
                       <Users size={24} />
                     </div>
                   </div>
 
                   <div className="mt-6">
-                    <div className="h-11 bg-gray-50 rounded-lg border border-gray-200 flex items-center px-4">
+                    <div
+                      className="h-11 bg-gray-50 dark:bg-gray-900
+                                 rounded-lg border border-gray-200 dark:border-gray-700
+                                 flex items-center px-4"
+                    >
                       <Search size={18} className="text-gray-400" />
 
                       <span className="text-sm text-gray-400 ml-3">
@@ -322,47 +380,49 @@ const Features = () => {
                   </div>
 
                   <div className="grid grid-cols-2 gap-3 mt-4">
-                    <div className="h-10 bg-green-50 rounded-lg flex items-center px-4">
-                      <span className="text-xs font-semibold text-green-700">
+                    <div className="h-10 bg-green-50 dark:bg-green-950/60 rounded-lg flex items-center px-4">
+                      <span className="text-xs font-semibold text-green-700 dark:text-green-400">
                         All Departments
                       </span>
                     </div>
 
-                    <div className="h-10 bg-gray-50 rounded-lg flex items-center px-4">
-                      <span className="text-xs font-semibold text-gray-600">
+                    <div className="h-10 bg-gray-50 dark:bg-gray-900 rounded-lg flex items-center px-4">
+                      <span className="text-xs font-semibold text-gray-600 dark:text-gray-400">
                         Active
                       </span>
                     </div>
                   </div>
 
                   <div className="space-y-3 mt-5">
-                    <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
+                    <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-900">
                       <div className="w-9 h-9 rounded-full bg-green-700 text-white flex items-center justify-center text-xs font-bold">
                         JD
                       </div>
 
                       <div>
-                        <p className="text-sm font-semibold text-gray-800">
+                        <p className="text-sm font-semibold text-gray-800 dark:text-gray-100">
                           John Michael Doe
                         </p>
 
-                        <p className="text-xs text-gray-500">
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
                           Frontend Developer
                         </p>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50">
-                      <div className="w-9 h-9 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-xs font-bold">
+                    <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50 dark:bg-gray-900">
+                      <div className="w-9 h-9 rounded-full bg-green-100 dark:bg-green-950/60 text-green-700 dark:text-green-400 flex items-center justify-center text-xs font-bold">
                         JW
                       </div>
 
                       <div>
-                        <p className="text-sm font-semibold text-gray-800">
+                        <p className="text-sm font-semibold text-gray-800 dark:text-gray-100">
                           Jane Williams
                         </p>
 
-                        <p className="text-xs text-gray-500">HR Manager</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          HR Manager
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -375,22 +435,28 @@ const Features = () => {
 
       {/* MANAGEMENT */}
       <ScrollReveal>
-        <section className="bg-white py-16 md:py-20">
+        <section className="bg-white dark:bg-gray-900 py-16 md:py-20 transition-colors duration-300">
           <div className="max-w-7xl mx-auto px-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="order-2 lg:order-1">
                 <div
-                  className="bg-gray-50 border border-gray-100
+                  className="bg-gray-50 dark:bg-gray-950
+                             border border-gray-100 dark:border-gray-800
                              rounded-3xl p-8 shadow-sm"
                 >
-                  <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
+                  <div
+                    className="bg-white dark:bg-gray-800
+                               rounded-2xl shadow-lg
+                               border border-gray-100 dark:border-gray-700
+                               p-6"
+                  >
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
                           Manage Employees
                         </p>
 
-                        <h3 className="text-2xl font-bold text-gray-900 mt-1">
+                        <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-1">
                           Employee Records
                         </h3>
                       </div>
@@ -404,55 +470,57 @@ const Features = () => {
                     </div>
 
                     <div className="mt-6 space-y-3">
-                      <div className="flex items-center justify-between border border-gray-100 rounded-xl p-4">
+                      <div className="flex items-center justify-between border border-gray-100 dark:border-gray-700 rounded-xl p-4">
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-xs font-bold">
+                          <div className="w-10 h-10 rounded-full bg-green-100 dark:bg-green-950/60 text-green-700 dark:text-green-400 flex items-center justify-center text-xs font-bold">
                             JD
                           </div>
 
                           <div>
-                            <p className="text-sm font-semibold text-gray-900">
+                            <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
                               John Doe
                             </p>
 
-                            <p className="text-xs text-gray-500">Engineering</p>
+                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                              Engineering
+                            </p>
                           </div>
                         </div>
 
                         <div className="flex gap-2">
-                          <span className="text-xs font-semibold text-green-700 bg-green-50 px-3 py-1 rounded-full">
+                          <span className="text-xs font-semibold text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-950/60 px-3 py-1 rounded-full">
                             Edit
                           </span>
 
-                          <span className="text-xs font-semibold text-red-600 bg-red-50 px-3 py-1 rounded-full">
+                          <span className="text-xs font-semibold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/60 px-3 py-1 rounded-full">
                             Delete
                           </span>
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-between border border-gray-100 rounded-xl p-4">
+                      <div className="flex items-center justify-between border border-gray-100 dark:border-gray-700 rounded-xl p-4">
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-xs font-bold">
+                          <div className="w-10 h-10 rounded-full bg-green-100 dark:bg-green-950/60 text-green-700 dark:text-green-400 flex items-center justify-center text-xs font-bold">
                             JW
                           </div>
 
                           <div>
-                            <p className="text-sm font-semibold text-gray-900">
+                            <p className="text-sm font-semibold text-gray-900 dark:text-gray-100">
                               Jane Williams
                             </p>
 
-                            <p className="text-xs text-gray-500">
+                            <p className="text-xs text-gray-500 dark:text-gray-400">
                               Human Resources
                             </p>
                           </div>
                         </div>
 
                         <div className="flex gap-2">
-                          <span className="text-xs font-semibold text-green-700 bg-green-50 px-3 py-1 rounded-full">
+                          <span className="text-xs font-semibold text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-950/60 px-3 py-1 rounded-full">
                             Edit
                           </span>
 
-                          <span className="text-xs font-semibold text-red-600 bg-red-50 px-3 py-1 rounded-full">
+                          <span className="text-xs font-semibold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/60 px-3 py-1 rounded-full">
                             Delete
                           </span>
                         </div>
@@ -464,64 +532,85 @@ const Features = () => {
 
               <div className="order-1 lg:order-2">
                 <div
-                  className="w-14 h-14 rounded-2xl bg-green-100
-                             text-green-700 flex items-center
-                             justify-center"
+                  className="w-14 h-14 rounded-2xl
+                             bg-green-100 dark:bg-green-950/60
+                             text-green-700 dark:text-green-400
+                             flex items-center justify-center"
                 >
                   <Pencil size={28} />
                 </div>
 
-                <p className="text-green-700 font-semibold uppercase tracking-wide mt-6">
+                <p className="text-green-700 dark:text-green-400 font-semibold uppercase tracking-wide mt-6">
                   Employee Management
                 </p>
 
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-3">
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mt-3">
                   Keep employee records up to date.
                 </h2>
 
-                <p className="text-gray-600 mt-5 leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-400 mt-5 leading-relaxed">
                   Authorized users can manage employee records from one
                   dedicated management area. Add new employees, update existing
                   information, or remove records that are no longer needed.
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-7">
-                  <div className="border border-gray-100 rounded-xl p-5">
-                    <UserPlus size={22} className="text-green-700" />
+                  <div className="border border-gray-100 dark:border-gray-800 rounded-xl p-5">
+                    <UserPlus
+                      size={22}
+                      className="text-green-700 dark:text-green-400"
+                    />
 
-                    <h3 className="font-bold text-gray-900 mt-3">Add</h3>
+                    <h3 className="font-bold text-gray-900 dark:text-gray-100 mt-3">
+                      Add
+                    </h3>
 
-                    <p className="text-sm text-gray-600 mt-1">
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                       Create new employee records.
                     </p>
                   </div>
 
-                  <div className="border border-gray-100 rounded-xl p-5">
-                    <Pencil size={22} className="text-green-700" />
+                  <div className="border border-gray-100 dark:border-gray-800 rounded-xl p-5">
+                    <Pencil
+                      size={22}
+                      className="text-green-700 dark:text-green-400"
+                    />
 
-                    <h3 className="font-bold text-gray-900 mt-3">Edit</h3>
+                    <h3 className="font-bold text-gray-900 dark:text-gray-100 mt-3">
+                      Edit
+                    </h3>
 
-                    <p className="text-sm text-gray-600 mt-1">
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                       Update employee information.
                     </p>
                   </div>
 
-                  <div className="border border-gray-100 rounded-xl p-5">
-                    <Trash2 size={22} className="text-red-600" />
+                  <div className="border border-gray-100 dark:border-gray-800 rounded-xl p-5">
+                    <Trash2
+                      size={22}
+                      className="text-red-600 dark:text-red-400"
+                    />
 
-                    <h3 className="font-bold text-gray-900 mt-3">Delete</h3>
+                    <h3 className="font-bold text-gray-900 dark:text-gray-100 mt-3">
+                      Delete
+                    </h3>
 
-                    <p className="text-sm text-gray-600 mt-1">
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                       Remove outdated records.
                     </p>
                   </div>
 
-                  <div className="border border-gray-100 rounded-xl p-5">
-                    <ShieldCheck size={22} className="text-green-700" />
+                  <div className="border border-gray-100 dark:border-gray-800 rounded-xl p-5">
+                    <ShieldCheck
+                      size={22}
+                      className="text-green-700 dark:text-green-400"
+                    />
 
-                    <h3 className="font-bold text-gray-900 mt-3">Control</h3>
+                    <h3 className="font-bold text-gray-900 dark:text-gray-100 mt-3">
+                      Control
+                    </h3>
 
-                    <p className="text-sm text-gray-600 mt-1">
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                       Keep management functions organized.
                     </p>
                   </div>
@@ -534,25 +623,27 @@ const Features = () => {
 
       {/* DASHBOARD */}
       <ScrollReveal>
-        <section className="py-16 md:py-20">
+        <section className="py-16 md:py-20 bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
           <div className="max-w-7xl mx-auto px-6">
             <div className="max-w-3xl mx-auto text-center">
               <div
-                className="w-14 h-14 mx-auto rounded-2xl bg-green-100
-                           text-green-700 flex items-center justify-center"
+                className="w-14 h-14 mx-auto rounded-2xl
+                           bg-green-100 dark:bg-green-950/60
+                           text-green-700 dark:text-green-400
+                           flex items-center justify-center"
               >
                 <LayoutDashboard size={28} />
               </div>
 
-              <p className="text-green-700 font-semibold uppercase tracking-wide mt-6">
+              <p className="text-green-700 dark:text-green-400 font-semibold uppercase tracking-wide mt-6">
                 Management Dashboard
               </p>
 
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-3">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mt-3">
                 Understand your workforce at a glance.
               </h2>
 
-              <p className="text-gray-600 mt-5 leading-relaxed">
+              <p className="text-gray-600 dark:text-gray-400 mt-5 leading-relaxed">
                 The dashboard provides a quick overview of employee activity and
                 organizational information without requiring users to search
                 through individual records.
@@ -561,61 +652,81 @@ const Features = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mt-12">
               <div
-                className="bg-white border border-gray-100
+                className="bg-white dark:bg-gray-900
+                           border border-gray-100 dark:border-gray-800
                            rounded-2xl shadow-sm p-6
                            hover:-translate-y-2 hover:shadow-xl
                            transition-all duration-500"
               >
-                <p className="text-sm text-gray-500">Total Employees</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  Total Employees
+                </p>
 
-                <p className="text-3xl font-bold text-gray-900 mt-2">120</p>
+                <p className="text-3xl font-bold text-gray-900 dark:text-gray-100 mt-2">
+                  120
+                </p>
 
-                <div className="h-1.5 bg-green-100 rounded-full mt-5">
+                <div className="h-1.5 bg-green-100 dark:bg-green-950/60 rounded-full mt-5">
                   <div className="h-1.5 bg-green-700 rounded-full w-4/5"></div>
                 </div>
               </div>
 
               <div
-                className="bg-white border border-gray-100
+                className="bg-white dark:bg-gray-900
+                           border border-gray-100 dark:border-gray-800
                            rounded-2xl shadow-sm p-6
                            hover:-translate-y-2 hover:shadow-xl
                            transition-all duration-500"
               >
-                <p className="text-sm text-gray-500">Active Employees</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  Active Employees
+                </p>
 
-                <p className="text-3xl font-bold text-green-700 mt-2">96</p>
+                <p className="text-3xl font-bold text-green-700 dark:text-green-400 mt-2">
+                  96
+                </p>
 
-                <div className="h-1.5 bg-green-100 rounded-full mt-5">
+                <div className="h-1.5 bg-green-100 dark:bg-green-950/60 rounded-full mt-5">
                   <div className="h-1.5 bg-green-700 rounded-full w-4/5"></div>
                 </div>
               </div>
 
               <div
-                className="bg-white border border-gray-100
+                className="bg-white dark:bg-gray-900
+                           border border-gray-100 dark:border-gray-800
                            rounded-2xl shadow-sm p-6
                            hover:-translate-y-2 hover:shadow-xl
                            transition-all duration-500"
               >
-                <p className="text-sm text-gray-500">On Leave</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  On Leave
+                </p>
 
-                <p className="text-3xl font-bold text-yellow-600 mt-2">12</p>
+                <p className="text-3xl font-bold text-yellow-600 dark:text-yellow-400 mt-2">
+                  12
+                </p>
 
-                <div className="h-1.5 bg-yellow-100 rounded-full mt-5">
+                <div className="h-1.5 bg-yellow-100 dark:bg-yellow-950/60 rounded-full mt-5">
                   <div className="h-1.5 bg-yellow-500 rounded-full w-1/4"></div>
                 </div>
               </div>
 
               <div
-                className="bg-white border border-gray-100
+                className="bg-white dark:bg-gray-900
+                           border border-gray-100 dark:border-gray-800
                            rounded-2xl shadow-sm p-6
                            hover:-translate-y-2 hover:shadow-xl
                            transition-all duration-500"
               >
-                <p className="text-sm text-gray-500">Departments</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  Departments
+                </p>
 
-                <p className="text-3xl font-bold text-blue-600 mt-2">8</p>
+                <p className="text-3xl font-bold text-blue-600 dark:text-blue-400 mt-2">
+                  8
+                </p>
 
-                <div className="h-1.5 bg-blue-100 rounded-full mt-5">
+                <div className="h-1.5 bg-blue-100 dark:bg-blue-950/60 rounded-full mt-5">
                   <div className="h-1.5 bg-blue-600 rounded-full w-1/2"></div>
                 </div>
               </div>
@@ -638,19 +749,19 @@ const Features = () => {
       </ScrollReveal>
 
       {/* WORKFLOW */}
-      <section className="bg-white py-16 md:py-20">
+      <section className="bg-white dark:bg-gray-900 py-16 md:py-20 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-6">
           <ScrollReveal>
             <div className="text-center max-w-3xl mx-auto">
-              <p className="text-green-700 font-semibold uppercase tracking-wide">
+              <p className="text-green-700 dark:text-green-400 font-semibold uppercase tracking-wide">
                 Simple Workflow
               </p>
 
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-3">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mt-3">
                 One system. One workflow. Less hassle.
               </h2>
 
-              <p className="text-gray-600 mt-4 leading-relaxed">
+              <p className="text-gray-600 dark:text-gray-400 mt-4 leading-relaxed">
                 EPMS connects employee viewing, searching, profiling, and
                 management into one straightforward experience.
               </p>
@@ -682,25 +793,27 @@ const Features = () => {
             ].map((step, index) => (
               <ScrollReveal key={step.number} delay={index * 100}>
                 <div
-                  className="relative bg-gray-50 border border-gray-100
+                  className="relative
+                             bg-gray-50 dark:bg-gray-950
+                             border border-gray-100 dark:border-gray-800
                              rounded-2xl p-7 h-full
                              hover:-translate-y-2 hover:shadow-lg
                              transition-all duration-500"
                 >
-                  <span className="text-green-700 font-bold text-sm">
+                  <span className="text-green-700 dark:text-green-400 font-bold text-sm">
                     STEP {step.number}
                   </span>
 
-                  <h3 className="text-xl font-bold text-gray-900 mt-4">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-4">
                     {step.title}
                   </h3>
 
-                  <p className="text-gray-600 mt-3 leading-relaxed">
+                  <p className="text-gray-600 dark:text-gray-400 mt-3 leading-relaxed">
                     {step.text}
                   </p>
 
                   {index < 3 && (
-                    <div className="hidden md:block absolute top-1/2 -right-4 text-green-300 text-2xl">
+                    <div className="hidden md:block absolute top-1/2 -right-4 text-green-300 dark:text-green-700 text-2xl">
                       →
                     </div>
                   )}

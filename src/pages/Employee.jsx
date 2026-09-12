@@ -457,14 +457,31 @@
 
 // export default Employee;
 
+import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import EmployeeCard from "../components/EmployeeCard";
-import { useState } from "react";
+
+import { Moon, Sun } from "lucide-react";
 
 const Employee = ({ employees }) => {
   const [search, setSearch] = useState("");
   const [department, setDepartment] = useState("All Departments");
   const [status, setStatus] = useState("All Status");
+
+  // Dark / Light Mode
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem("epmsDarkMode") === "true";
+  });
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("epmsDarkMode", "true");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("epmsDarkMode", "false");
+    }
+  }, [darkMode]);
 
   // Statistics
   const totalEmployees = employees.length;
@@ -495,27 +512,45 @@ const Employee = ({ employees }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
       <Navbar />
+
+      {/* THEME TOGGLE */}
+      <button
+        type="button"
+        onClick={() => setDarkMode(!darkMode)}
+        className="fixed top-24 right-5 z-40
+                   p-2.5 rounded-full
+                   bg-white dark:bg-gray-800
+                   border border-gray-200 dark:border-gray-700
+                   text-gray-600 dark:text-gray-300
+                   hover:bg-green-50 dark:hover:bg-gray-700
+                   hover:text-green-700 dark:hover:text-green-400
+                   shadow-sm transition-all duration-200"
+        aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+        title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+      >
+        {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+      </button>
 
       <div className="max-w-7xl mx-auto px-6 py-10">
         {/* Page Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
             Employee Directory
           </h1>
 
-          <p className="text-gray-500 mt-1">
+          <p className="text-gray-500 dark:text-gray-400 mt-1">
             Search and view employee information.
           </p>
         </div>
 
         {/* Search and Filters */}
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6 mb-8">
+        <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm p-6 mb-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Search */}
             <div className="md:col-span-1">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                 Search Employees
               </label>
 
@@ -524,21 +559,28 @@ const Employee = ({ employees }) => {
                 placeholder="Search by name, ID, email..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-4 py-3
+                className="w-full border border-gray-300 dark:border-gray-700
+                           bg-white dark:bg-gray-800
+                           text-gray-900 dark:text-gray-100
+                           placeholder-gray-400 dark:placeholder-gray-500
+                           rounded-lg px-4 py-3
                            focus:outline-none focus:ring-2 focus:ring-green-500"
               />
             </div>
 
             {/* Department */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                 Department
               </label>
 
               <select
                 value={department}
                 onChange={(e) => setDepartment(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-4 py-3
+                className="w-full border border-gray-300 dark:border-gray-700
+                           bg-white dark:bg-gray-800
+                           text-gray-900 dark:text-gray-100
+                           rounded-lg px-4 py-3
                            focus:outline-none focus:ring-2 focus:ring-green-500"
               >
                 <option>All Departments</option>
@@ -552,14 +594,17 @@ const Employee = ({ employees }) => {
 
             {/* Status */}
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                 Status
               </label>
 
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-4 py-3
+                className="w-full border border-gray-300 dark:border-gray-700
+                           bg-white dark:bg-gray-800
+                           text-gray-900 dark:text-gray-100
+                           rounded-lg px-4 py-3
                            focus:outline-none focus:ring-2 focus:ring-green-500"
               >
                 <option>All Status</option>
@@ -572,13 +617,13 @@ const Employee = ({ employees }) => {
 
           {/* Filter Information */}
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-5 gap-3">
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-500 dark:text-gray-400">
               Showing{" "}
-              <span className="font-semibold text-gray-800">
+              <span className="font-semibold text-gray-800 dark:text-gray-200">
                 {filteredEmployees.length}
               </span>{" "}
               of{" "}
-              <span className="font-semibold text-gray-800">
+              <span className="font-semibold text-gray-800 dark:text-gray-200">
                 {totalEmployees}
               </span>{" "}
               employees
@@ -589,7 +634,7 @@ const Employee = ({ employees }) => {
               status !== "All Status") && (
               <button
                 onClick={clearFilters}
-                className="text-sm font-semibold text-green-700 hover:text-green-800"
+                className="text-sm font-semibold text-green-700 dark:text-green-400 hover:text-green-800 dark:hover:text-green-300"
               >
                 Clear Filters
               </button>
@@ -606,12 +651,12 @@ const Employee = ({ employees }) => {
           </div>
         ) : (
           /* Empty State */
-          <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-12 text-center">
-            <h2 className="text-xl font-bold text-gray-900">
+          <div className="bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm p-12 text-center">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
               No Employees Found
             </h2>
 
-            <p className="text-gray-500 mt-2">
+            <p className="text-gray-500 dark:text-gray-400 mt-2">
               Try changing your search or filter options.
             </p>
 

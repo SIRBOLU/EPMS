@@ -388,7 +388,6 @@ const Navbar = () => {
 
   const firstName = loggedInUser?.firstName || "User";
   const lastName = loggedInUser?.lastName || "";
-
   const initials = `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
 
   const location = useLocation();
@@ -423,7 +422,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white border-b border-green-100 shadow-sm sticky top-0 z-50">
+    <nav className="bg-white dark:bg-gray-900 border-b border-green-100 dark:border-gray-800 shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
         {/* Main Navbar */}
         <div className="h-20 flex items-center justify-between">
@@ -436,11 +435,11 @@ const Navbar = () => {
             />
 
             <div>
-              <h1 className="text-lg sm:text-xl font-bold text-green-900 tracking-tight">
+              <h1 className="text-lg sm:text-xl font-bold text-green-900 dark:text-green-400 tracking-tight">
                 EPMS
               </h1>
 
-              <p className="text-[10px] sm:text-xs text-green-600">
+              <p className="text-[10px] sm:text-xs text-green-600 dark:text-green-500">
                 Employee Management
               </p>
             </div>
@@ -456,8 +455,8 @@ const Navbar = () => {
                   `flex items-center gap-2 px-4 py-2.5 rounded-lg
                    transition-all duration-200 ${
                      isActive
-                       ? "bg-green-100 text-green-800 font-semibold"
-                       : "text-gray-600 hover:bg-green-50 hover:text-green-800"
+                       ? "bg-green-100 dark:bg-green-950/60 text-green-800 dark:text-green-400 font-semibold"
+                       : "text-gray-600 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-gray-800 hover:text-green-800 dark:hover:text-green-400"
                    }`
                 }
               >
@@ -472,8 +471,8 @@ const Navbar = () => {
                 to="/dashboard"
                 className={
                   dashboardSection
-                    ? "flex items-center gap-2 px-4 py-2.5 rounded-lg transition-all duration-200 bg-green-100 text-green-800 font-semibold"
-                    : "flex items-center gap-2 px-4 py-2.5 rounded-lg transition-all duration-200 text-gray-600 hover:bg-green-50 hover:text-green-800"
+                    ? "flex items-center gap-2 px-4 py-2.5 rounded-lg transition-all duration-200 bg-green-100 dark:bg-green-950/60 text-green-800 dark:text-green-400 font-semibold"
+                    : "flex items-center gap-2 px-4 py-2.5 rounded-lg transition-all duration-200 text-gray-600 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-gray-800 hover:text-green-800 dark:hover:text-green-400"
                 }
               >
                 Dashboard
@@ -488,8 +487,8 @@ const Navbar = () => {
                   `flex items-center gap-2 px-4 py-2.5 rounded-lg
                    transition-all duration-200 ${
                      isActive
-                       ? "bg-green-100 text-green-800 font-semibold"
-                       : "text-gray-600 hover:bg-green-50 hover:text-green-800"
+                       ? "bg-green-100 dark:bg-green-950/60 text-green-800 dark:text-green-400 font-semibold"
+                       : "text-gray-600 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-gray-800 hover:text-green-800 dark:hover:text-green-400"
                    }`
                 }
               >
@@ -506,8 +505,8 @@ const Navbar = () => {
                   `flex items-center gap-2 px-4 py-2.5 rounded-lg
                    transition-all duration-200 ${
                      isActive
-                       ? "bg-green-100 text-green-800 font-semibold"
-                       : "text-gray-600 hover:bg-green-50 hover:text-green-800"
+                       ? "bg-green-100 dark:bg-green-950/60 text-green-800 dark:text-green-400 font-semibold"
+                       : "text-gray-600 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-gray-800 hover:text-green-800 dark:hover:text-green-400"
                    }`
                 }
               >
@@ -524,8 +523,8 @@ const Navbar = () => {
                   `flex items-center gap-2 px-4 py-2.5 rounded-lg
                    transition-all duration-200 ${
                      isActive
-                       ? "bg-green-100 text-green-800 font-semibold"
-                       : "text-gray-600 hover:bg-green-50 hover:text-green-800"
+                       ? "bg-green-100 dark:bg-green-950/60 text-green-800 dark:text-green-400 font-semibold"
+                       : "text-gray-600 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-gray-800 hover:text-green-800 dark:hover:text-green-400"
                    }`
                 }
               >
@@ -539,14 +538,18 @@ const Navbar = () => {
           <div className="flex items-center gap-2 sm:gap-4">
             {/* Notification */}
             <button
-              className="relative p-2 rounded-full text-gray-600
-                         hover:bg-green-50 hover:text-green-700 transition"
+              className="relative p-2 rounded-full
+                         text-gray-600 dark:text-gray-300
+                         hover:bg-green-50 dark:hover:bg-gray-800
+                         hover:text-green-700 dark:hover:text-green-400
+                         transition"
             >
               <Bell size={20} />
 
               <span
                 className="absolute top-1 right-1 w-2.5 h-2.5
-                           bg-red-500 rounded-full border-2 border-white"
+                           bg-red-500 rounded-full
+                           border-2 border-white dark:border-gray-900"
               ></span>
             </button>
 
@@ -554,8 +557,11 @@ const Navbar = () => {
             <button
               type="button"
               onClick={() => setDarkMode(!darkMode)}
-              className="p-2 rounded-full text-gray-600
-                         hover:bg-green-50 hover:text-green-700 transition"
+              className="p-2 rounded-full
+                         text-gray-600 dark:text-gray-300
+                         hover:bg-green-50 dark:hover:bg-gray-800
+                         hover:text-green-700 dark:hover:text-green-400
+                         transition"
               aria-label={
                 darkMode ? "Switch to light mode" : "Switch to dark mode"
               }
@@ -565,7 +571,7 @@ const Navbar = () => {
             </button>
 
             {/* Desktop User */}
-            <div className="relative hidden sm:flex items-center gap-3 pl-3 sm:pl-4 border-l border-gray-200">
+            <div className="relative hidden sm:flex items-center gap-3 pl-3 sm:pl-4 border-l border-gray-200 dark:border-gray-700">
               {/* User Button */}
               <button
                 type="button"
@@ -581,16 +587,18 @@ const Navbar = () => {
                 </div>
 
                 <div className="hidden lg:block text-left">
-                  <p className="text-sm font-semibold text-gray-800">
+                  <p className="text-sm font-semibold text-gray-800 dark:text-gray-100">
                     {firstName} {lastName}
                   </p>
 
-                  <p className="text-xs text-gray-500">Administrator</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                    Administrator
+                  </p>
                 </div>
 
                 <ChevronDown
                   size={17}
-                  className={`text-gray-500 hidden lg:block transition-transform duration-200 ${
+                  className={`text-gray-500 dark:text-gray-400 hidden lg:block transition-transform duration-200 ${
                     userMenuOpen ? "rotate-180" : ""
                   }`}
                 />
@@ -599,8 +607,10 @@ const Navbar = () => {
               {/* Dropdown */}
               {userMenuOpen && (
                 <div
-                  className="absolute right-0 top-full mt-3 w-48 bg-white
-                             border border-gray-100 rounded-xl shadow-lg
+                  className="absolute right-0 top-full mt-3 w-48
+                             bg-white dark:bg-gray-800
+                             border border-gray-100 dark:border-gray-700
+                             rounded-xl shadow-lg
                              py-2 z-50"
                 >
                   <button
@@ -611,7 +621,9 @@ const Navbar = () => {
                       window.location.href = "/login";
                     }}
                     className="w-full text-left px-4 py-2.5 text-sm font-medium
-                               text-red-600 hover:bg-red-50 transition"
+                               text-red-600 dark:text-red-400
+                               hover:bg-red-50 dark:hover:bg-red-950/40
+                               transition"
                   >
                     Logout
                   </button>
@@ -624,8 +636,10 @@ const Navbar = () => {
               type="button"
               onClick={() => setMenuOpen(!menuOpen)}
               className="md:hidden flex items-center justify-center
-                         w-10 h-10 rounded-lg text-gray-700
-                         hover:bg-green-50 hover:text-green-700
+                         w-10 h-10 rounded-lg
+                         text-gray-700 dark:text-gray-200
+                         hover:bg-green-50 dark:hover:bg-gray-800
+                         hover:text-green-700 dark:hover:text-green-400
                          transition"
               aria-label="Toggle navigation menu"
             >
@@ -636,7 +650,7 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         {menuOpen && (
-          <div className="md:hidden border-t border-green-100 py-4">
+          <div className="md:hidden border-t border-green-100 dark:border-gray-800 py-4">
             <div className="flex flex-col gap-1">
               {/* Dashboard */}
               <NavLink
@@ -644,8 +658,8 @@ const Navbar = () => {
                 onClick={closeMenu}
                 className={
                   dashboardSection
-                    ? "flex items-center gap-3 px-4 py-3 rounded-lg bg-green-100 text-green-800 font-semibold"
-                    : "flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-green-50 hover:text-green-800"
+                    ? "flex items-center gap-3 px-4 py-3 rounded-lg bg-green-100 dark:bg-green-950/60 text-green-800 dark:text-green-400 font-semibold"
+                    : "flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-gray-800 hover:text-green-800 dark:hover:text-green-400"
                 }
               >
                 Dashboard
@@ -658,8 +672,8 @@ const Navbar = () => {
                 className={({ isActive }) =>
                   `flex items-center gap-3 px-4 py-3 rounded-lg ${
                     isActive
-                      ? "bg-green-100 text-green-800 font-semibold"
-                      : "text-gray-600 hover:bg-green-50 hover:text-green-800"
+                      ? "bg-green-100 dark:bg-green-950/60 text-green-800 dark:text-green-400 font-semibold"
+                      : "text-gray-600 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-gray-800 hover:text-green-800 dark:hover:text-green-400"
                   }`
                 }
               >
@@ -674,8 +688,8 @@ const Navbar = () => {
                 className={({ isActive }) =>
                   `flex items-center gap-3 px-4 py-3 rounded-lg ${
                     isActive
-                      ? "bg-green-100 text-green-800 font-semibold"
-                      : "text-gray-600 hover:bg-green-50 hover:text-green-800"
+                      ? "bg-green-100 dark:bg-green-950/60 text-green-800 dark:text-green-400 font-semibold"
+                      : "text-gray-600 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-gray-800 hover:text-green-800 dark:hover:text-green-400"
                   }`
                 }
               >
@@ -690,8 +704,8 @@ const Navbar = () => {
                 className={({ isActive }) =>
                   `flex items-center gap-3 px-4 py-3 rounded-lg ${
                     isActive
-                      ? "bg-green-100 text-green-800 font-semibold"
-                      : "text-gray-600 hover:bg-green-50 hover:text-green-800"
+                      ? "bg-green-100 dark:bg-green-950/60 text-green-800 dark:text-green-400 font-semibold"
+                      : "text-gray-600 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-gray-800 hover:text-green-800 dark:hover:text-green-400"
                   }`
                 }
               >
@@ -700,7 +714,7 @@ const Navbar = () => {
               </NavLink>
 
               {/* Mobile User */}
-              <div className="relative hidden sm:flex items-center gap-3 pl-3 sm:pl-4 border-l border-gray-200">
+              <div className="relative hidden sm:flex items-center gap-3 pl-3 sm:pl-4 border-l border-gray-200 dark:border-gray-700">
                 {/* User Button */}
                 <button
                   type="button"
@@ -716,16 +730,18 @@ const Navbar = () => {
                   </div>
 
                   <div className="hidden lg:block text-left">
-                    <p className="text-sm font-semibold text-gray-800">
+                    <p className="text-sm font-semibold text-gray-800 dark:text-gray-100">
                       {firstName} {lastName}
                     </p>
 
-                    <p className="text-xs text-gray-500">Administrator</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      Administrator
+                    </p>
                   </div>
 
                   <ChevronDown
                     size={17}
-                    className={`text-gray-500 hidden lg:block transition-transform duration-200 ${
+                    className={`text-gray-500 dark:text-gray-400 hidden lg:block transition-transform duration-200 ${
                       userMenuOpen ? "rotate-180" : ""
                     }`}
                   />
@@ -734,8 +750,10 @@ const Navbar = () => {
                 {/* Dropdown */}
                 {userMenuOpen && (
                   <div
-                    className="absolute right-0 top-full mt-3 w-48 bg-white
-                               border border-gray-100 rounded-xl shadow-lg
+                    className="absolute right-0 top-full mt-3 w-48
+                               bg-white dark:bg-gray-800
+                               border border-gray-100 dark:border-gray-700
+                               rounded-xl shadow-lg
                                py-2 z-50"
                   >
                     <button
@@ -746,7 +764,9 @@ const Navbar = () => {
                         window.location.href = "/login";
                       }}
                       className="w-full text-left px-4 py-2.5 text-sm font-medium
-                                 text-red-600 hover:bg-red-50 transition"
+                                 text-red-600 dark:text-red-400
+                                 hover:bg-red-50 dark:hover:bg-red-950/40
+                                 transition"
                     >
                       Logout
                     </button>

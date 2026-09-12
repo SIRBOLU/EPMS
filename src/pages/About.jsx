@@ -1,11 +1,47 @@
+import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import ScrollReveal from "../components/ScrollReveal";
 import { Link } from "react-router-dom";
 
+import { Moon, Sun } from "lucide-react";
+
 const About = () => {
+  // Dark / Light Mode
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem("epmsDarkMode") === "true";
+  });
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("epmsDarkMode", "true");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("epmsDarkMode", "false");
+    }
+  }, [darkMode]);
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
       <Navbar />
+
+      {/* THEME TOGGLE */}
+      <button
+        type="button"
+        onClick={() => setDarkMode(!darkMode)}
+        className="fixed top-24 right-5 z-40
+                   p-2.5 rounded-full
+                   bg-white dark:bg-gray-800
+                   border border-gray-200 dark:border-gray-700
+                   text-gray-600 dark:text-gray-300
+                   hover:bg-green-50 dark:hover:bg-gray-700
+                   hover:text-green-700 dark:hover:text-green-400
+                   shadow-sm transition-all duration-200"
+        aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+        title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+      >
+        {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+      </button>
 
       {/* HERO SECTION */}
       <section className="bg-gradient-to-br from-green-900 via-green-800 to-green-700 text-white">
@@ -55,19 +91,19 @@ const About = () => {
 
       {/* WHAT IS EPMS */}
       <ScrollReveal>
-        <section className="bg-white py-16 md:py-20">
+        <section className="bg-white dark:bg-gray-900 py-16 md:py-20 transition-colors duration-300">
           <div className="max-w-7xl mx-auto px-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <p className="text-green-700 font-semibold uppercase tracking-wide">
+                <p className="text-green-700 dark:text-green-400 font-semibold uppercase tracking-wide">
                   What is EPMS?
                 </p>
 
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-3">
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mt-3">
                   Everything you need to manage employee records.
                 </h2>
 
-                <p className="text-gray-600 mt-6 leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-400 mt-6 leading-relaxed">
                   EPMS provides a centralized platform where employee
                   information can be organized and accessed efficiently. Instead
                   of keeping employee records scattered across different
@@ -75,7 +111,7 @@ const About = () => {
                   easy-to-use platform.
                 </p>
 
-                <p className="text-gray-600 mt-4 leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-400 mt-4 leading-relaxed">
                   From employee profiles and contact information to departments,
                   positions, and employment status, EPMS makes it easier to keep
                   important records organized.
@@ -83,8 +119,8 @@ const About = () => {
               </div>
 
               <div
-                className="bg-green-50 rounded-3xl p-8 md:p-10
-                           border border-green-100
+                className="bg-green-50 dark:bg-green-950/40 rounded-3xl p-8 md:p-10
+                           border border-green-100 dark:border-green-900
                            hover:-translate-y-2 hover:shadow-xl
                            transition-all duration-500"
               >
@@ -98,11 +134,11 @@ const About = () => {
                   EP
                 </div>
 
-                <h3 className="text-2xl font-bold text-gray-900 mt-6">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-6">
                   Employee Profile Management
                 </h3>
 
-                <p className="text-gray-600 mt-3 leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-400 mt-3 leading-relaxed">
                   A centralized system for viewing and managing employee
                   information with simplicity, speed, and organization.
                 </p>
@@ -113,19 +149,19 @@ const About = () => {
       </ScrollReveal>
 
       {/* PURPOSE SECTION */}
-      <section className="py-16 md:py-20">
+      <section className="py-16 md:py-20 bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-6">
           <ScrollReveal>
             <div className="text-center max-w-3xl mx-auto">
-              <p className="text-green-700 font-semibold uppercase tracking-wide">
+              <p className="text-green-700 dark:text-green-400 font-semibold uppercase tracking-wide">
                 Our Purpose
               </p>
 
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-3">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mt-3">
                 Built to make employee management easier.
               </h2>
 
-              <p className="text-gray-600 mt-4 leading-relaxed">
+              <p className="text-gray-600 dark:text-gray-400 mt-4 leading-relaxed">
                 EPMS focuses on simplifying everyday employee management tasks
                 while keeping information organized and accessible.
               </p>
@@ -135,24 +171,26 @@ const About = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
             <ScrollReveal delay={0}>
               <div
-                className="bg-white rounded-2xl border border-gray-100
+                className="bg-white dark:bg-gray-900 rounded-2xl
+                           border border-gray-100 dark:border-gray-800
                            shadow-sm p-7 h-full
                            hover:-translate-y-2 hover:shadow-xl
                            transition-all duration-500"
               >
                 <div
-                  className="w-12 h-12 bg-green-100 text-green-700
+                  className="w-12 h-12 bg-green-100 dark:bg-green-950/60
+                             text-green-700 dark:text-green-400
                              rounded-xl flex items-center justify-center
                              font-bold text-lg"
                 >
                   01
                 </div>
 
-                <h3 className="text-xl font-bold text-gray-900 mt-6">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-6">
                   Centralize
                 </h3>
 
-                <p className="text-gray-600 mt-3 leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-400 mt-3 leading-relaxed">
                   Keep employee records in one centralized location instead of
                   managing information across multiple documents.
                 </p>
@@ -161,24 +199,26 @@ const About = () => {
 
             <ScrollReveal delay={100}>
               <div
-                className="bg-white rounded-2xl border border-gray-100
+                className="bg-white dark:bg-gray-900 rounded-2xl
+                           border border-gray-100 dark:border-gray-800
                            shadow-sm p-7 h-full
                            hover:-translate-y-2 hover:shadow-xl
                            transition-all duration-500"
               >
                 <div
-                  className="w-12 h-12 bg-green-100 text-green-700
+                  className="w-12 h-12 bg-green-100 dark:bg-green-950/60
+                             text-green-700 dark:text-green-400
                              rounded-xl flex items-center justify-center
                              font-bold text-lg"
                 >
                   02
                 </div>
 
-                <h3 className="text-xl font-bold text-gray-900 mt-6">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-6">
                   Simplify
                 </h3>
 
-                <p className="text-gray-600 mt-3 leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-400 mt-3 leading-relaxed">
                   Make it easier for authorized users to find and manage
                   employee information quickly.
                 </p>
@@ -187,24 +227,26 @@ const About = () => {
 
             <ScrollReveal delay={200}>
               <div
-                className="bg-white rounded-2xl border border-gray-100
+                className="bg-white dark:bg-gray-900 rounded-2xl
+                           border border-gray-100 dark:border-gray-800
                            shadow-sm p-7 h-full
                            hover:-translate-y-2 hover:shadow-xl
                            transition-all duration-500"
               >
                 <div
-                  className="w-12 h-12 bg-green-100 text-green-700
+                  className="w-12 h-12 bg-green-100 dark:bg-green-950/60
+                             text-green-700 dark:text-green-400
                              rounded-xl flex items-center justify-center
                              font-bold text-lg"
                 >
                   03
                 </div>
 
-                <h3 className="text-xl font-bold text-gray-900 mt-6">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-6">
                   Improve
                 </h3>
 
-                <p className="text-gray-600 mt-3 leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-400 mt-3 leading-relaxed">
                   Create a cleaner and more efficient employee management
                   experience for organizations.
                 </p>
@@ -215,19 +257,19 @@ const About = () => {
       </section>
 
       {/* BENEFITS */}
-      <section className="bg-white py-16 md:py-20">
+      <section className="bg-white dark:bg-gray-900 py-16 md:py-20 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-6">
           <ScrollReveal>
             <div className="text-center max-w-3xl mx-auto">
-              <p className="text-green-700 font-semibold uppercase tracking-wide">
+              <p className="text-green-700 dark:text-green-400 font-semibold uppercase tracking-wide">
                 Key Benefits
               </p>
 
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-3">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mt-3">
                 Why use EPMS?
               </h2>
 
-              <p className="text-gray-600 mt-4">
+              <p className="text-gray-600 dark:text-gray-400 mt-4">
                 EPMS provides practical tools that make employee information
                 easier to manage and access.
               </p>
@@ -237,18 +279,20 @@ const About = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
             <ScrollReveal delay={0}>
               <div
-                className="p-6 rounded-2xl border border-gray-100
-                           bg-gray-50 h-full
-                           hover:bg-green-50 hover:-translate-y-2
-                           hover:shadow-lg transition-all duration-500"
+                className="p-6 rounded-2xl
+                           border border-gray-100 dark:border-gray-800
+                           bg-gray-50 dark:bg-gray-950 h-full
+                           hover:bg-green-50 dark:hover:bg-green-950/40
+                           hover:-translate-y-2 hover:shadow-lg
+                           transition-all duration-500"
               >
                 <div className="text-3xl">📁</div>
 
-                <h3 className="text-lg font-bold text-gray-900 mt-5">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mt-5">
                   Centralized Records
                 </h3>
 
-                <p className="text-gray-600 text-sm mt-3 leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-400 text-sm mt-3 leading-relaxed">
                   Keep employee information organized in one place.
                 </p>
               </div>
@@ -256,18 +300,20 @@ const About = () => {
 
             <ScrollReveal delay={100}>
               <div
-                className="p-6 rounded-2xl border border-gray-100
-                           bg-gray-50 h-full
-                           hover:bg-green-50 hover:-translate-y-2
-                           hover:shadow-lg transition-all duration-500"
+                className="p-6 rounded-2xl
+                           border border-gray-100 dark:border-gray-800
+                           bg-gray-50 dark:bg-gray-950 h-full
+                           hover:bg-green-50 dark:hover:bg-green-950/40
+                           hover:-translate-y-2 hover:shadow-lg
+                           transition-all duration-500"
               >
                 <div className="text-3xl">🔍</div>
 
-                <h3 className="text-lg font-bold text-gray-900 mt-5">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mt-5">
                   Easy Search
                 </h3>
 
-                <p className="text-gray-600 text-sm mt-3 leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-400 text-sm mt-3 leading-relaxed">
                   Quickly find employees using names, IDs, departments,
                   positions, or email addresses.
                 </p>
@@ -276,18 +322,20 @@ const About = () => {
 
             <ScrollReveal delay={200}>
               <div
-                className="p-6 rounded-2xl border border-gray-100
-                           bg-gray-50 h-full
-                           hover:bg-green-50 hover:-translate-y-2
-                           hover:shadow-lg transition-all duration-500"
+                className="p-6 rounded-2xl
+                           border border-gray-100 dark:border-gray-800
+                           bg-gray-50 dark:bg-gray-950 h-full
+                           hover:bg-green-50 dark:hover:bg-green-950/40
+                           hover:-translate-y-2 hover:shadow-lg
+                           transition-all duration-500"
               >
                 <div className="text-3xl">⚙️</div>
 
-                <h3 className="text-lg font-bold text-gray-900 mt-5">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mt-5">
                   Simple Management
                 </h3>
 
-                <p className="text-gray-600 text-sm mt-3 leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-400 text-sm mt-3 leading-relaxed">
                   Add, edit, and remove employee records through a
                   straightforward management interface.
                 </p>
@@ -296,18 +344,20 @@ const About = () => {
 
             <ScrollReveal delay={300}>
               <div
-                className="p-6 rounded-2xl border border-gray-100
-                           bg-gray-50 h-full
-                           hover:bg-green-50 hover:-translate-y-2
-                           hover:shadow-lg transition-all duration-500"
+                className="p-6 rounded-2xl
+                           border border-gray-100 dark:border-gray-800
+                           bg-gray-50 dark:bg-gray-950 h-full
+                           hover:bg-green-50 dark:hover:bg-green-950/40
+                           hover:-translate-y-2 hover:shadow-lg
+                           transition-all duration-500"
               >
                 <div className="text-3xl">👤</div>
 
-                <h3 className="text-lg font-bold text-gray-900 mt-5">
+                <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mt-5">
                   Clear Profiles
                 </h3>
 
-                <p className="text-gray-600 text-sm mt-3 leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-400 text-sm mt-3 leading-relaxed">
                   View important employee information through clean and
                   structured profiles.
                 </p>
@@ -318,19 +368,19 @@ const About = () => {
       </section>
 
       {/* HOW EPMS WORKS */}
-      <section className="py-16 md:py-20">
+      <section className="py-16 md:py-20 bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-6">
           <ScrollReveal>
             <div className="text-center max-w-3xl mx-auto">
-              <p className="text-green-700 font-semibold uppercase tracking-wide">
+              <p className="text-green-700 dark:text-green-400 font-semibold uppercase tracking-wide">
                 How It Works
               </p>
 
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-3">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mt-3">
                 Everything is organized into simple steps.
               </h2>
 
-              <p className="text-gray-600 mt-4 leading-relaxed">
+              <p className="text-gray-600 dark:text-gray-400 mt-4 leading-relaxed">
                 EPMS gives users a straightforward workflow for accessing and
                 managing employee information.
               </p>
@@ -340,20 +390,21 @@ const About = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
             <ScrollReveal delay={0}>
               <div
-                className="bg-white rounded-2xl border border-gray-100
+                className="bg-white dark:bg-gray-900 rounded-2xl
+                           border border-gray-100 dark:border-gray-800
                            shadow-sm p-7 h-full
                            hover:-translate-y-2 hover:shadow-xl
                            transition-all duration-500"
               >
-                <span className="text-green-700 font-bold text-sm">
+                <span className="text-green-700 dark:text-green-400 font-bold text-sm">
                   STEP 01
                 </span>
 
-                <h3 className="text-xl font-bold text-gray-900 mt-4">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-4">
                   Dashboard
                 </h3>
 
-                <p className="text-gray-600 mt-3 leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-400 mt-3 leading-relaxed">
                   Get an overview of employee records, statistics, and
                   departments from one central dashboard.
                 </p>
@@ -362,20 +413,21 @@ const About = () => {
 
             <ScrollReveal delay={100}>
               <div
-                className="bg-white rounded-2xl border border-gray-100
+                className="bg-white dark:bg-gray-900 rounded-2xl
+                           border border-gray-100 dark:border-gray-800
                            shadow-sm p-7 h-full
                            hover:-translate-y-2 hover:shadow-xl
                            transition-all duration-500"
               >
-                <span className="text-green-700 font-bold text-sm">
+                <span className="text-green-700 dark:text-green-400 font-bold text-sm">
                   STEP 02
                 </span>
 
-                <h3 className="text-xl font-bold text-gray-900 mt-4">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-4">
                   Employee Directory
                 </h3>
 
-                <p className="text-gray-600 mt-3 leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-400 mt-3 leading-relaxed">
                   Search and filter employees to quickly locate the information
                   you need.
                 </p>
@@ -384,20 +436,21 @@ const About = () => {
 
             <ScrollReveal delay={200}>
               <div
-                className="bg-white rounded-2xl border border-gray-100
+                className="bg-white dark:bg-gray-900 rounded-2xl
+                           border border-gray-100 dark:border-gray-800
                            shadow-sm p-7 h-full
                            hover:-translate-y-2 hover:shadow-xl
                            transition-all duration-500"
               >
-                <span className="text-green-700 font-bold text-sm">
+                <span className="text-green-700 dark:text-green-400 font-bold text-sm">
                   STEP 03
                 </span>
 
-                <h3 className="text-xl font-bold text-gray-900 mt-4">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-4">
                   Manage Employees
                 </h3>
 
-                <p className="text-gray-600 mt-3 leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-400 mt-3 leading-relaxed">
                   Authorized users can add, edit, and delete employee records
                   from the management area.
                 </p>
@@ -406,20 +459,21 @@ const About = () => {
 
             <ScrollReveal delay={300}>
               <div
-                className="bg-white rounded-2xl border border-gray-100
+                className="bg-white dark:bg-gray-900 rounded-2xl
+                           border border-gray-100 dark:border-gray-800
                            shadow-sm p-7 h-full
                            hover:-translate-y-2 hover:shadow-xl
                            transition-all duration-500"
               >
-                <span className="text-green-700 font-bold text-sm">
+                <span className="text-green-700 dark:text-green-400 font-bold text-sm">
                   STEP 04
                 </span>
 
-                <h3 className="text-xl font-bold text-gray-900 mt-4">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-4">
                   Employee Profile
                 </h3>
 
-                <p className="text-gray-600 mt-3 leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-400 mt-3 leading-relaxed">
                   Open a complete employee profile to view contact, department,
                   position, and status information.
                 </p>
@@ -472,7 +526,7 @@ const About = () => {
         <div className="max-w-7xl mx-auto px-6">
           <div
             className="flex flex-col md:flex-row
-                          items-center justify-between gap-4"
+                       items-center justify-between gap-4"
           >
             <div>
               <p className="text-white font-bold text-lg">EPMS</p>
