@@ -652,7 +652,7 @@
 
 // export default Login;
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 import { useState, useEffect } from "react";
 
@@ -664,14 +664,12 @@ import { Mail, Lock, Eye, EyeOff, ShieldCheck, Moon, Sun } from "lucide-react";
 
 const Login = () => {
   const navigate = useNavigate();
-
-  const [email, setEmail] = useState("");
-
-  const [password, setPassword] = useState("");
-
-  const [showPassword, setShowPassword] = useState(false);
+  const location = useLocation();
 
   const [error, setError] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   // ================= DARK MODE =================
 
@@ -693,41 +691,76 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     setError("");
 
-    // Get the registered user
+    const enteredEmail = email.trim().toLowerCase();
+
+    // =================================================
+    // ADMIN ACCOUNT
+    // =================================================
+
+    // Change these credentials to whatever you want
+    const adminEmail = "admin@epms.com";
+    const adminPassword = "admin123";
+
+    if (enteredEmail === adminEmail && password === adminPassword) {
+      const adminUser = {
+        firstName: "EPMS",
+        lastName: "Administrator",
+        email: adminEmail,
+        password: adminPassword,
+        role: "admin",
+      };
+
+      // Save logged-in administrator
+      localStorage.setItem("epmsLoggedInUser", JSON.stringify(adminUser));
+
+      // Go to requested page or dashboard
+      const destination = location.state?.from || "/dashboard";
+
+      navigate(destination, { replace: true });
+
+      return;
+    }
+
+    // =================================================
+    // REGULAR USER
+    // =================================================
 
     const savedUser = localStorage.getItem("epmsUser");
 
-    // No account exists
-
+    // No regular account exists
     if (!savedUser) {
       setError("No account found. Please create an account first.");
-
       return;
     }
 
     const user = JSON.parse(savedUser);
 
-    // Check login details
+    // Make sure normal signup users are regular users
+    const regularUser = {
+      ...user,
+      role: "user",
+    };
 
+    // Check login details
     if (
-      email.trim().toLowerCase() !== user.email ||
-      password !== user.password
+      enteredEmail !== regularUser.email ||
+      password !== regularUser.password
     ) {
       setError("Invalid email or password.");
-
       return;
     }
 
-    // Save currently logged-in user
+    // Save currently logged-in regular user
+    localStorage.setItem("epmsLoggedInUser", JSON.stringify(regularUser));
 
-    localStorage.setItem("epmsLoggedInUser", JSON.stringify(user));
+    // Regular users should normally go to Employees
+    // If they originally requested an employee page,
+    // they will be returned there.
+    const destination = location.state?.from || "/employees";
 
-    // Go to Home
-
-    navigate("/home");
+    navigate(destination, { replace: true });
   };
 
   return (
@@ -754,46 +787,88 @@ const Login = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 min-h-screen">
         {/* ================= LEFT SIDE ================= */}
 
-        <div className="hidden lg:block relative min-h-screen">
+        <div className="hidden lg:block lg:w-full relative overflow-hidden">
           <img
             src={employee}
-            alt="EPMS Employees"
+            alt="EPMS Employee Management"
             className="absolute inset-0 w-full h-full object-cover"
           />
 
-          {/* Green Overlay */}
+          {/* Dark green overlay */}
+          <div className="absolute inset-0 bg-green-950/75"></div>
 
-          <div className="absolute inset-0 bg-green-950/80"></div>
+          {/* Left side content */}
 
-          <div className="relative z-10 min-h-screen flex flex-col justify-center px-12 xl:px-20 text-white">
-            <img
-              src={logo}
-              alt="EPMS Logo"
-              className="w-16 h-16 rounded-2xl object-cover mb-8 shadow-lg"
-            />
+          <div className="relative z-10 h-full flex flex-col justify-between p-10 xl:p-14 text-white">
+            {/* Logo */}
 
-            <p className="text-green-300 font-semibold tracking-wider uppercase text-sm mb-3">
-              Employee Profile Management System
-            </p>
+            <div className="flex items-center gap-3">
+              <img
+                src={logo}
+                alt="EPMS Logo"
+                className="w-12 h-12 rounded-xl object-cover shadow-lg"
+              />
 
-            <h1 className="text-4xl xl:text-5xl font-bold leading-tight">
-              Manage your workforce.
-              <br />
-              Simplify your workplace.
-            </h1>
+              <div>
+                <h1 className="text-2xl font-bold tracking-wide">EPMS</h1>
 
-            <p className="text-green-100 text-lg mt-5 max-w-lg leading-relaxed">
-              Access employee information, manage your workforce and keep your
-              organization structured with EPMS.
-            </p>
-
-            <div className="flex items-center gap-3 mt-8">
-              <div className="w-10 h-1 bg-green-400 rounded-full"></div>
-
-              <span className="text-green-200 text-sm">
-                Simple. Secure. Organized.
-              </span>
+                <p className="text-green-200 text-xs">Employee Management</p>
+              </div>
             </div>
+
+            {/* Main message */}
+
+            <div className="max-w-lg">
+              <div
+                className="inline-flex items-center gap-2 bg-white/10
+                           backdrop-blur-sm border border-white/20
+                           px-4 py-2 rounded-full text-sm mb-6"
+              >
+                <ShieldCheck size={17} />
+                Secure Employee Management
+              </div>
+
+              <h2 className="text-4xl xl:text-5xl font-bold leading-tight w-[700px]">
+                Manage your workforce.
+                <span className="block text-green-300">
+                  Simplify your workplace.
+                </span>
+              </h2>
+
+              <p className="mt-6 text-green-50/80 text-base xl:text-lg leading-relaxed">
+                EPMS provides a simple and efficient way to manage employee
+                information, profiles, departments and workplace records from
+                one centralized platform.
+              </p>
+
+              <div className="mt-8 flex items-center gap-8">
+                <div>
+                  <p className="text-2xl font-bold">100%</p>
+                  <p className="text-sm text-green-200">Organized</p>
+                </div>
+
+                <div className="w-px h-10 bg-white/20"></div>
+
+                <div>
+                  <p className="text-2xl font-bold">Secure</p>
+                  <p className="text-sm text-green-200">Employee Data</p>
+                </div>
+
+                <div className="w-px h-10 bg-white/20"></div>
+
+                <div>
+                  <p className="text-2xl font-bold">Simple</p>
+                  <p className="text-sm text-green-200">To Use</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Footer */}
+
+            <p className="text-sm text-green-100/60">
+              © {new Date().getFullYear()} EPMS. Employee Profile Management
+              System.
+            </p>
           </div>
         </div>
 

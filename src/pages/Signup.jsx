@@ -95,13 +95,9 @@
 // export default Signup;
 
 import { Link, useNavigate } from "react-router-dom";
-
 import { useState, useEffect } from "react";
-
 import employee from "../assets/employeee.jpg";
-
 import logo from "../assets/logo.png";
-
 import { Mail, Lock, Eye, EyeOff, ShieldCheck, Moon, Sun } from "lucide-react";
 
 const Signup = () => {
@@ -116,9 +112,7 @@ const Signup = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
-
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
   const [error, setError] = useState("");
 
   // ================= DARK MODE =================
@@ -137,6 +131,8 @@ const Signup = () => {
     }
   }, [darkMode]);
 
+  // ================= HANDLE INPUT =================
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -148,33 +144,28 @@ const Signup = () => {
     setError("");
   };
 
+  // ================= SIGNUP =================
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const firstName = formData.firstName.trim();
-
     const lastName = formData.lastName.trim();
-
     const email = formData.email.trim().toLowerCase();
 
     // Check if passwords match
-
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match.");
-
       return;
     }
 
     // Check password length
-
     if (formData.password.length < 6) {
       setError("Password must be at least 6 characters.");
-
       return;
     }
 
     // Check if an account already exists
-
     const existingUser = localStorage.getItem("epmsUser");
 
     if (existingUser) {
@@ -182,26 +173,27 @@ const Signup = () => {
 
       if (savedUser.email === email) {
         setError("An account with this email already exists. Please log in.");
-
         return;
       }
     }
 
-    // Create the user object
+    // ================= CREATE REGULAR USER =================
 
     const user = {
       firstName,
       lastName,
       email,
       password: formData.password,
+
+      // Every account created through public signup
+      // is automatically a regular user.
+      role: "user",
     };
 
     // Save user account
-
     localStorage.setItem("epmsUser", JSON.stringify(user));
 
     // Go to Login page
-
     navigate("/login");
   };
 
@@ -237,7 +229,6 @@ const Signup = () => {
           />
 
           {/* Green Overlay */}
-
           <div className="absolute inset-0 bg-green-950/80"></div>
 
           <div className="relative z-10 h-full flex flex-col justify-center px-12 xl:px-20 text-white">
@@ -548,7 +539,6 @@ const Signup = () => {
 
             <div className="flex items-center justify-center gap-2 mt-5 text-xs text-gray-400 dark:text-gray-500">
               <ShieldCheck size={15} />
-
               <span>Your information is protected</span>
             </div>
           </div>

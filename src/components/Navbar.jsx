@@ -388,14 +388,23 @@ const Navbar = () => {
 
   const firstName = loggedInUser?.firstName || "User";
   const lastName = loggedInUser?.lastName || "";
+
   const initials = `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
+
+  // ================= USER ROLE =================
+
+  const isAdmin = loggedInUser?.role === "admin";
+
+  const userRole = isAdmin ? "Administrator" : "Employee";
 
   const location = useLocation();
 
   const [menuOpen, setMenuOpen] = useState(false);
+
   const [userMenuOpen, setUserMenuOpen] = useState(false);
 
-  // Light mode is the default
+  // ================= DARK MODE =================
+
   const [darkMode, setDarkMode] = useState(() => {
     return localStorage.getItem("epmsDarkMode") === "true";
   });
@@ -411,22 +420,38 @@ const Navbar = () => {
     }
   }, [darkMode]);
 
+  // ================= DASHBOARD SECTION =================
+
   const dashboardSection =
     location.pathname === "/dashboard" ||
     location.pathname === "/manage-employees" ||
     location.pathname === "/addemployee" ||
     location.pathname.endsWith("/edit");
 
+  // ================= CLOSE MOBILE MENU =================
+
   const closeMenu = () => {
     setMenuOpen(false);
+  };
+
+  // ================= LOGOUT =================
+
+  const handleLogout = () => {
+    localStorage.removeItem("epmsLoggedInUser");
+
+    setUserMenuOpen(false);
+
+    window.location.href = "/login";
   };
 
   return (
     <nav className="bg-white dark:bg-gray-900 border-b border-green-100 dark:border-gray-800 shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
-        {/* Main Navbar */}
+        {/* ================= MAIN NAVBAR ================= */}
+
         <div className="h-20 flex items-center justify-between">
-          {/* Logo */}
+          {/* ================= LOGO ================= */}
+
           <Link to="/home" className="flex items-center gap-3">
             <img
               src={logo}
@@ -445,9 +470,11 @@ const Navbar = () => {
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* ================= DESKTOP NAVIGATION ================= */}
+
           <ul className="hidden md:flex items-center gap-2">
-            {/* Home */}
+            {/* ================= HOME ================= */}
+
             <li>
               <NavLink
                 to="/home"
@@ -465,21 +492,26 @@ const Navbar = () => {
               </NavLink>
             </li>
 
-            {/* Dashboard */}
-            <li>
-              <NavLink
-                to="/dashboard"
-                className={
-                  dashboardSection
-                    ? "flex items-center gap-2 px-4 py-2.5 rounded-lg transition-all duration-200 bg-green-100 dark:bg-green-950/60 text-green-800 dark:text-green-400 font-semibold"
-                    : "flex items-center gap-2 px-4 py-2.5 rounded-lg transition-all duration-200 text-gray-600 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-gray-800 hover:text-green-800 dark:hover:text-green-400"
-                }
-              >
-                Dashboard
-              </NavLink>
-            </li>
+            {/* ================= DASHBOARD ================= */}
+            {/* ADMIN ONLY */}
 
-            {/* Employees */}
+            {isAdmin && (
+              <li>
+                <NavLink
+                  to="/dashboard"
+                  className={
+                    dashboardSection
+                      ? "flex items-center gap-2 px-4 py-2.5 rounded-lg transition-all duration-200 bg-green-100 dark:bg-green-950/60 text-green-800 dark:text-green-400 font-semibold"
+                      : "flex items-center gap-2 px-4 py-2.5 rounded-lg transition-all duration-200 text-gray-600 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-gray-800 hover:text-green-800 dark:hover:text-green-400"
+                  }
+                >
+                  Dashboard
+                </NavLink>
+              </li>
+            )}
+
+            {/* ================= EMPLOYEES ================= */}
+
             <li>
               <NavLink
                 to="/employees"
@@ -497,7 +529,8 @@ const Navbar = () => {
               </NavLink>
             </li>
 
-            {/* About */}
+            {/* ================= ABOUT ================= */}
+
             <li>
               <NavLink
                 to="/about"
@@ -515,7 +548,8 @@ const Navbar = () => {
               </NavLink>
             </li>
 
-            {/* Features */}
+            {/* ================= FEATURES ================= */}
+
             <li>
               <NavLink
                 to="/features"
@@ -534,9 +568,11 @@ const Navbar = () => {
             </li>
           </ul>
 
-          {/* Right Section */}
+          {/* ================= RIGHT SECTION ================= */}
+
           <div className="flex items-center gap-2 sm:gap-4">
-            {/* Notification */}
+            {/* ================= NOTIFICATION ================= */}
+
             <button
               className="relative p-2 rounded-full
                          text-gray-600 dark:text-gray-300
@@ -553,7 +589,8 @@ const Navbar = () => {
               ></span>
             </button>
 
-            {/* Dark / Light Mode Toggle */}
+            {/* ================= DARK / LIGHT MODE ================= */}
+
             <button
               type="button"
               onClick={() => setDarkMode(!darkMode)}
@@ -570,9 +607,11 @@ const Navbar = () => {
               {darkMode ? <Sun size={20} /> : <Moon size={20} />}
             </button>
 
-            {/* Desktop User */}
+            {/* ================= DESKTOP USER ================= */}
+
             <div className="relative hidden sm:flex items-center gap-3 pl-3 sm:pl-4 border-l border-gray-200 dark:border-gray-700">
               {/* User Button */}
+
               <button
                 type="button"
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
@@ -592,7 +631,7 @@ const Navbar = () => {
                   </p>
 
                   <p className="text-xs text-gray-500 dark:text-gray-400">
-                    Administrator
+                    {userRole}
                   </p>
                 </div>
 
@@ -604,7 +643,8 @@ const Navbar = () => {
                 />
               </button>
 
-              {/* Dropdown */}
+              {/* ================= DROPDOWN ================= */}
+
               {userMenuOpen && (
                 <div
                   className="absolute right-0 top-full mt-3 w-48
@@ -615,11 +655,7 @@ const Navbar = () => {
                 >
                   <button
                     type="button"
-                    onClick={() => {
-                      localStorage.removeItem("epmsLoggedInUser");
-                      setUserMenuOpen(false);
-                      window.location.href = "/login";
-                    }}
+                    onClick={handleLogout}
                     className="w-full text-left px-4 py-2.5 text-sm font-medium
                                text-red-600 dark:text-red-400
                                hover:bg-red-50 dark:hover:bg-red-950/40
@@ -631,7 +667,8 @@ const Navbar = () => {
               )}
             </div>
 
-            {/* Mobile Menu Button */}
+            {/* ================= MOBILE MENU BUTTON ================= */}
+
             <button
               type="button"
               onClick={() => setMenuOpen(!menuOpen)}
@@ -648,24 +685,30 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* ================= MOBILE MENU ================= */}
+
         {menuOpen && (
           <div className="md:hidden border-t border-green-100 dark:border-gray-800 py-4">
             <div className="flex flex-col gap-1">
-              {/* Dashboard */}
-              <NavLink
-                to="/dashboard"
-                onClick={closeMenu}
-                className={
-                  dashboardSection
-                    ? "flex items-center gap-3 px-4 py-3 rounded-lg bg-green-100 dark:bg-green-950/60 text-green-800 dark:text-green-400 font-semibold"
-                    : "flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-gray-800 hover:text-green-800 dark:hover:text-green-400"
-                }
-              >
-                Dashboard
-              </NavLink>
+              {/* ================= DASHBOARD ================= */}
+              {/* ADMIN ONLY */}
 
-              {/* Employees */}
+              {isAdmin && (
+                <NavLink
+                  to="/dashboard"
+                  onClick={closeMenu}
+                  className={
+                    dashboardSection
+                      ? "flex items-center gap-3 px-4 py-3 rounded-lg bg-green-100 dark:bg-green-950/60 text-green-800 dark:text-green-400 font-semibold"
+                      : "flex items-center gap-3 px-4 py-3 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-green-50 dark:hover:bg-gray-800 hover:text-green-800 dark:hover:text-green-400"
+                  }
+                >
+                  Dashboard
+                </NavLink>
+              )}
+
+              {/* ================= EMPLOYEES ================= */}
+
               <NavLink
                 to="/employees"
                 onClick={closeMenu}
@@ -681,7 +724,8 @@ const Navbar = () => {
                 Employees
               </NavLink>
 
-              {/* About */}
+              {/* ================= ABOUT ================= */}
+
               <NavLink
                 to="/about"
                 onClick={closeMenu}
@@ -697,7 +741,8 @@ const Navbar = () => {
                 About
               </NavLink>
 
-              {/* Features */}
+              {/* ================= FEATURES ================= */}
+
               <NavLink
                 to="/features"
                 onClick={closeMenu}
@@ -713,65 +758,39 @@ const Navbar = () => {
                 Features
               </NavLink>
 
-              {/* Mobile User */}
-              <div className="relative hidden sm:flex items-center gap-3 pl-3 sm:pl-4 border-l border-gray-200 dark:border-gray-700">
-                {/* User Button */}
-                <button
-                  type="button"
-                  onClick={() => setUserMenuOpen(!userMenuOpen)}
-                  className="flex items-center gap-3 cursor-pointer"
-                >
+              {/* ================= MOBILE USER ================= */}
+
+              <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+                <div className="flex items-center gap-3 px-4 py-3">
                   <div
-                    className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-green-700
+                    className="w-10 h-10 rounded-full bg-green-700
                                text-white flex items-center justify-center
                                font-semibold"
                   >
                     {initials}
                   </div>
 
-                  <div className="hidden lg:block text-left">
+                  <div>
                     <p className="text-sm font-semibold text-gray-800 dark:text-gray-100">
                       {firstName} {lastName}
                     </p>
 
                     <p className="text-xs text-gray-500 dark:text-gray-400">
-                      Administrator
+                      {userRole}
                     </p>
                   </div>
+                </div>
 
-                  <ChevronDown
-                    size={17}
-                    className={`text-gray-500 dark:text-gray-400 hidden lg:block transition-transform duration-200 ${
-                      userMenuOpen ? "rotate-180" : ""
-                    }`}
-                  />
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  className="w-full text-left px-4 py-3 text-sm font-medium
+                             text-red-600 dark:text-red-400
+                             hover:bg-red-50 dark:hover:bg-red-950/40
+                             transition"
+                >
+                  Logout
                 </button>
-
-                {/* Dropdown */}
-                {userMenuOpen && (
-                  <div
-                    className="absolute right-0 top-full mt-3 w-48
-                               bg-white dark:bg-gray-800
-                               border border-gray-100 dark:border-gray-700
-                               rounded-xl shadow-lg
-                               py-2 z-50"
-                  >
-                    <button
-                      type="button"
-                      onClick={() => {
-                        localStorage.removeItem("epmsLoggedInUser");
-                        setUserMenuOpen(false);
-                        window.location.href = "/login";
-                      }}
-                      className="w-full text-left px-4 py-2.5 text-sm font-medium
-                                 text-red-600 dark:text-red-400
-                                 hover:bg-red-50 dark:hover:bg-red-950/40
-                                 transition"
-                    >
-                      Logout
-                    </button>
-                  </div>
-                )}
               </div>
             </div>
           </div>

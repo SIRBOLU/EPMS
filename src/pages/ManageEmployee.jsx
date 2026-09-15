@@ -17,18 +17,18 @@ const ManageEmployee = ({ employees, setEmployees }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       <Navbar />
 
       <div className="max-w-7xl mx-auto px-6 py-10">
         {/* Page Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
               Manage Employees
             </h1>
 
-            <p className="text-gray-500 mt-1">
+            <p className="text-gray-500 dark:text-gray-400 mt-1">
               Add, edit, and manage employee records.
             </p>
           </div>
@@ -37,9 +37,11 @@ const ManageEmployee = ({ employees, setEmployees }) => {
             {/* Back Button */}
             <Link
               to="/dashboard"
-              className="border border-green-200 text-green-700
-                 px-5 py-3 rounded-lg font-semibold
-                 hover:bg-green-50 transition text-center"
+              className="border border-green-200 dark:border-green-800
+                         text-green-700 dark:text-green-400
+                         px-5 py-3 rounded-lg font-semibold
+                         hover:bg-green-50 dark:hover:bg-green-950/40
+                         transition text-center"
             >
               ← Back
             </Link>
@@ -48,7 +50,7 @@ const ManageEmployee = ({ employees, setEmployees }) => {
             <Link
               to="/addemployee"
               className="bg-green-700 text-white px-5 py-3 rounded-lg
-                 font-semibold hover:bg-green-800 transition text-center"
+                         font-semibold hover:bg-green-800 transition text-center"
             >
               + Add Employee
             </Link>
@@ -56,22 +58,32 @@ const ManageEmployee = ({ employees, setEmployees }) => {
         </div>
 
         {/* Employee Count */}
-        <div className="bg-white border border-gray-100 rounded-xl shadow-sm p-6 mb-6">
-          <p className="text-sm text-gray-500">Total Employees</p>
+        <div
+          className="bg-white dark:bg-gray-900
+                     border border-gray-100 dark:border-gray-800
+                     rounded-xl shadow-sm p-6 mb-6"
+        >
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            Total Employees
+          </p>
 
-          <h2 className="text-3xl font-bold text-gray-900 mt-1">
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mt-1">
             {employees.length}
           </h2>
         </div>
 
         {/* Employee Management Table */}
-        <div className="bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden">
-          <div className="px-6 py-5 border-b border-gray-100">
-            <h2 className="text-xl font-bold text-gray-900">
+        <div
+          className="bg-white dark:bg-gray-900
+                     border border-gray-100 dark:border-gray-800
+                     rounded-xl shadow-sm overflow-hidden"
+        >
+          <div className="px-6 py-5 border-b border-gray-100 dark:border-gray-800">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
               Employee Records
             </h2>
 
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
               Manage your employee information from here.
             </p>
           </div>
@@ -79,29 +91,29 @@ const ManageEmployee = ({ employees, setEmployees }) => {
           {/* Desktop Table */}
           <div className="hidden md:block overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50">
+              <thead className="bg-gray-50 dark:bg-gray-800/70">
                 <tr>
-                  <th className="text-left px-6 py-4 text-sm font-semibold text-gray-600">
+                  <th className="text-left px-6 py-4 text-sm font-semibold text-gray-600 dark:text-gray-300">
                     Employee
                   </th>
 
-                  <th className="text-left px-6 py-4 text-sm font-semibold text-gray-600">
+                  <th className="text-left px-6 py-4 text-sm font-semibold text-gray-600 dark:text-gray-300">
                     ID
                   </th>
 
-                  <th className="text-left px-6 py-4 text-sm font-semibold text-gray-600">
+                  <th className="text-left px-6 py-4 text-sm font-semibold text-gray-600 dark:text-gray-300">
                     Position
                   </th>
 
-                  <th className="text-left px-6 py-4 text-sm font-semibold text-gray-600">
+                  <th className="text-left px-6 py-4 text-sm font-semibold text-gray-600 dark:text-gray-300">
                     Department
                   </th>
 
-                  <th className="text-left px-6 py-4 text-sm font-semibold text-gray-600">
+                  <th className="text-left px-6 py-4 text-sm font-semibold text-gray-600 dark:text-gray-300">
                     Status
                   </th>
 
-                  <th className="text-right px-6 py-4 text-sm font-semibold text-gray-600">
+                  <th className="text-right px-6 py-4 text-sm font-semibold text-gray-600 dark:text-gray-300">
                     Actions
                   </th>
                 </tr>
@@ -111,7 +123,9 @@ const ManageEmployee = ({ employees, setEmployees }) => {
                 {employees.map((employee) => (
                   <tr
                     key={employee.id}
-                    className="border-t border-gray-100 hover:bg-gray-50 transition"
+                    className="border-t border-gray-100 dark:border-gray-800
+                               hover:bg-gray-50 dark:hover:bg-gray-800/50
+                               transition"
                   >
                     {/* Employee */}
                     <td className="px-6 py-4">
@@ -119,15 +133,16 @@ const ManageEmployee = ({ employees, setEmployees }) => {
                         <img
                           src={employee.image || "/avatar.jpg"}
                           alt={employee.name}
-                          className="w-10 h-10 rounded-full object-cover"
+                          className="w-10 h-10 rounded-full object-cover
+                                     border-2 border-green-200 dark:border-green-700"
                         />
 
                         <div>
-                          <p className="font-semibold text-gray-900">
+                          <p className="font-semibold text-gray-900 dark:text-gray-100">
                             {employee.name}
                           </p>
 
-                          <p className="text-sm text-gray-500">
+                          <p className="text-sm text-gray-500 dark:text-gray-400">
                             {employee.email}
                           </p>
                         </div>
@@ -135,17 +150,17 @@ const ManageEmployee = ({ employees, setEmployees }) => {
                     </td>
 
                     {/* ID */}
-                    <td className="px-6 py-4 text-sm text-gray-600">
+                    <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
                       {employee.id}
                     </td>
 
                     {/* Position */}
-                    <td className="px-6 py-4 text-sm text-gray-600">
+                    <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
                       {employee.position}
                     </td>
 
                     {/* Department */}
-                    <td className="px-6 py-4 text-sm text-gray-600">
+                    <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
                       {employee.department}
                     </td>
 
@@ -154,10 +169,10 @@ const ManageEmployee = ({ employees, setEmployees }) => {
                       <span
                         className={`inline-block px-3 py-1 rounded-full text-xs font-semibold ${
                           employee.status === "Active"
-                            ? "bg-green-100 text-green-700"
+                            ? "bg-green-100 dark:bg-green-950/60 text-green-700 dark:text-green-400"
                             : employee.status === "On Leave"
-                              ? "bg-yellow-100 text-yellow-700"
-                              : "bg-red-100 text-red-700"
+                              ? "bg-yellow-100 dark:bg-yellow-950/60 text-yellow-700 dark:text-yellow-400"
+                              : "bg-red-100 dark:bg-red-950/60 text-red-700 dark:text-red-400"
                         }`}
                       >
                         {employee.status}
@@ -170,27 +185,36 @@ const ManageEmployee = ({ employees, setEmployees }) => {
                         <Link
                           to={`/employees/${employee.id}`}
                           state={{ from: "/manage-employees" }}
-                          className="px-3 py-2 border border-gray-200
-             text-gray-700 rounded-lg text-sm
-             font-semibold hover:bg-gray-50 transition"
+                          className="px-3 py-2
+                                     border border-gray-200 dark:border-gray-700
+                                     text-gray-700 dark:text-gray-300
+                                     rounded-lg text-sm font-semibold
+                                     hover:bg-gray-50 dark:hover:bg-gray-800
+                                     transition"
                         >
                           View
                         </Link>
 
                         <Link
                           to={`/employees/${employee.id}/edit`}
-                          className="px-3 py-2 border border-green-200
-                                     text-green-700 rounded-lg text-sm
-                                     font-semibold hover:bg-green-50 transition"
+                          className="px-3 py-2
+                                     border border-green-200 dark:border-green-800
+                                     text-green-700 dark:text-green-400
+                                     rounded-lg text-sm font-semibold
+                                     hover:bg-green-50 dark:hover:bg-green-950/40
+                                     transition"
                         >
                           Edit
                         </Link>
 
                         <button
                           onClick={() => handleDelete(employee.id)}
-                          className="px-3 py-2 border border-red-200
-                                     text-red-600 rounded-lg text-sm
-                                     font-semibold hover:bg-red-50 transition"
+                          className="px-3 py-2
+                                     border border-red-200 dark:border-red-800
+                                     text-red-600 dark:text-red-400
+                                     rounded-lg text-sm font-semibold
+                                     hover:bg-red-50 dark:hover:bg-red-950/40
+                                     transition"
                         >
                           Delete
                         </button>
@@ -203,42 +227,47 @@ const ManageEmployee = ({ employees, setEmployees }) => {
           </div>
 
           {/* Mobile Employee Cards */}
-          <div className="md:hidden divide-y divide-gray-100">
+          <div className="md:hidden divide-y divide-gray-100 dark:divide-gray-800">
             {employees.map((employee) => (
               <div key={employee.id} className="p-5">
                 <div className="flex items-center gap-3 mb-4">
                   <img
                     src={employee.image || "/avatar.jpg"}
                     alt={employee.name}
-                    className="w-12 h-12 rounded-full object-cover"
+                    className="w-12 h-12 rounded-full object-cover
+                               border-2 border-green-200 dark:border-green-700"
                   />
 
                   <div>
-                    <h3 className="font-semibold text-gray-900">
+                    <h3 className="font-semibold text-gray-900 dark:text-gray-100">
                       {employee.name}
                     </h3>
 
-                    <p className="text-sm text-gray-500">{employee.id}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      {employee.id}
+                    </p>
                   </div>
                 </div>
 
                 <div className="space-y-2 text-sm mb-4">
-                  <p>
-                    <span className="font-semibold text-gray-700">
+                  <p className="text-gray-600 dark:text-gray-300">
+                    <span className="font-semibold text-gray-700 dark:text-gray-200">
                       Position:
                     </span>{" "}
                     {employee.position}
                   </p>
 
-                  <p>
-                    <span className="font-semibold text-gray-700">
+                  <p className="text-gray-600 dark:text-gray-300">
+                    <span className="font-semibold text-gray-700 dark:text-gray-200">
                       Department:
                     </span>{" "}
                     {employee.department}
                   </p>
 
-                  <p>
-                    <span className="font-semibold text-gray-700">Status:</span>{" "}
+                  <p className="text-gray-600 dark:text-gray-300">
+                    <span className="font-semibold text-gray-700 dark:text-gray-200">
+                      Status:
+                    </span>{" "}
                     {employee.status}
                   </p>
                 </div>
@@ -247,27 +276,36 @@ const ManageEmployee = ({ employees, setEmployees }) => {
                   <Link
                     to={`/employees/${employee.id}`}
                     state={{ from: "/manage-employees" }}
-                    className="text-center px-2 py-2 border border-gray-200
-             text-gray-700 rounded-lg text-sm font-semibold
-             hover:bg-gray-50 transition"
+                    className="text-center px-2 py-2
+                               border border-gray-200 dark:border-gray-700
+                               text-gray-700 dark:text-gray-300
+                               rounded-lg text-sm font-semibold
+                               hover:bg-gray-50 dark:hover:bg-gray-800
+                               transition"
                   >
                     View
                   </Link>
 
                   <Link
                     to={`/employees/${employee.id}/edit`}
-                    className="text-center px-2 py-2 border border-green-200
-                               text-green-700 rounded-lg text-sm font-semibold
-                               hover:bg-green-50 transition"
+                    className="text-center px-2 py-2
+                               border border-green-200 dark:border-green-800
+                               text-green-700 dark:text-green-400
+                               rounded-lg text-sm font-semibold
+                               hover:bg-green-50 dark:hover:bg-green-950/40
+                               transition"
                   >
                     Edit
                   </Link>
 
                   <button
                     onClick={() => handleDelete(employee.id)}
-                    className="px-2 py-2 border border-red-200
-                               text-red-600 rounded-lg text-sm font-semibold
-                               hover:bg-red-50 transition"
+                    className="px-2 py-2
+                               border border-red-200 dark:border-red-800
+                               text-red-600 dark:text-red-400
+                               rounded-lg text-sm font-semibold
+                               hover:bg-red-50 dark:hover:bg-red-950/40
+                               transition"
                   >
                     Delete
                   </button>
@@ -279,9 +317,11 @@ const ManageEmployee = ({ employees, setEmployees }) => {
           {/* Empty State */}
           {employees.length === 0 && (
             <div className="text-center py-16 px-6">
-              <h2 className="text-xl font-bold text-gray-900">No Employees</h2>
+              <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100">
+                No Employees
+              </h2>
 
-              <p className="text-gray-500 mt-2">
+              <p className="text-gray-500 dark:text-gray-400 mt-2">
                 There are currently no employee records.
               </p>
 

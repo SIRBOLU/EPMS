@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import ScrollReveal from "../components/ScrollReveal";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import {
   Users,
@@ -30,6 +30,21 @@ const Home = () => {
       localStorage.setItem("epmsDarkMode", "false");
     }
   }, [darkMode]);
+  const navigate = useNavigate();
+
+  const handleProtectedNavigation = (path) => {
+    const loggedInUser = localStorage.getItem("epmsLoggedInUser");
+
+    if (loggedInUser) {
+      navigate(path);
+    } else {
+      navigate("/login", {
+        state: {
+          from: path,
+        },
+      });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
@@ -89,16 +104,17 @@ const Home = () => {
                     <ArrowRight size={18} />
                   </Link>
 
-                  <Link
-                    to="/login"
+                  <button
                     className="inline-flex items-center justify-center
                                border border-green-300 text-white
                                px-6 py-3 rounded-lg font-semibold
                                hover:bg-green-800 hover:-translate-y-1
                                transition-all duration-300"
+                    type="button"
+                    onClick={() => handleProtectedNavigation("/employees")}
                   >
                     Explore Employees
-                  </Link>
+                  </button>
                 </div>
               </div>
             </ScrollReveal>
@@ -677,25 +693,17 @@ const Home = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row justify-center gap-4 mt-8">
-              <Link
-                to="/login"
-                className="bg-white text-green-900 px-6 py-3
-                           rounded-lg font-semibold
-                           hover:bg-green-50 hover:-translate-y-1
-                           transition-all duration-300"
-              >
-                Go to Dashboard
-              </Link>
-
-              <Link
-                to="/login"
-                className="border border-green-300 text-white
-                           px-6 py-3 rounded-lg font-semibold
-                           hover:bg-green-800 hover:-translate-y-1
-                           transition-all duration-300"
+              <button
+                className="inline-flex items-center justify-center
+                               border border-green-300 text-white
+                               px-6 py-3 rounded-lg font-semibold
+                               hover:bg-green-800 hover:-translate-y-1
+                               transition-all duration-300"
+                type="button"
+                onClick={() => handleProtectedNavigation("/employees")}
               >
                 View Employees
-              </Link>
+              </button>
             </div>
           </div>
         </section>
