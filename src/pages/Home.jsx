@@ -35,160 +35,937 @@ const Home = () => {
       <Navbar />
 
       {/* HERO SECTION */}
-      <section className="bg-gradient-to-br from-green-950 via-green-900 to-green-700 text-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 py-20 md:py-28">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
-            {/* HERO TEXT */}
+      <section
+        className="relative overflow-hidden
+             bg-white dark:bg-gray-950
+             text-gray-900 dark:text-white"
+      >
+        {/* LARGE SOFT GREEN AURORA */}
+        <div
+          className="absolute
+               -top-40 -right-32
+               w-[600px] h-[600px]
+               rounded-full
+               bg-emerald-200/40
+               dark:bg-emerald-500/10
+               blur-[120px]"
+        ></div>
+
+        {/* SECOND AURORA */}
+        <div
+          className="absolute
+               top-[35%] -left-40
+               w-[500px] h-[500px]
+               rounded-full
+               bg-green-100/70
+               dark:bg-green-900/20
+               blur-[110px]"
+        ></div>
+
+        {/* CENTER LIGHT */}
+        <div
+          className="absolute
+               top-1/2 left-1/2
+               -translate-x-1/2
+               -translate-y-1/2
+               w-[700px] h-[350px]
+               rounded-full
+               bg-emerald-100/40
+               dark:bg-emerald-500/5
+               blur-[120px]"
+        ></div>
+
+        {/* VERY SUBTLE DOT GRID */}
+        <div
+          className="absolute inset-0
+               opacity-[0.35]
+               dark:opacity-[0.08]
+               [background-image:radial-gradient(#10b981_1px,transparent_1px)]
+               [background-size:28px_28px]"
+        ></div>
+
+        {/* LARGE DECORATIVE CIRCLE */}
+        <div
+          className="absolute
+               -right-48 top-20
+               w-[520px] h-[520px]
+               rounded-full
+               border border-emerald-100
+               dark:border-emerald-900/40"
+        ></div>
+
+        {/* SECOND DECORATIVE CIRCLE */}
+        <div
+          className="absolute
+               -right-28 top-40
+               w-[360px] h-[360px]
+               rounded-full
+               border border-emerald-100/70
+               dark:border-emerald-900/30"
+        ></div>
+
+        {/* DIAGONAL LIGHT SHAPE */}
+        <div
+          className="absolute
+               top-[-20%] right-[28%]
+               w-[280px] h-[900px]
+               rotate-[28deg]
+               bg-gradient-to-b
+               from-transparent
+               via-emerald-100/30
+               to-transparent
+               dark:via-emerald-500/5
+               blur-2xl"
+        ></div>
+
+        {/* CONTENT */}
+        <div
+          className="relative z-10
+               max-w-7xl mx-auto
+               px-6 py-20 md:py-28"
+        >
+          <div
+            className="grid grid-cols-1
+                 lg:grid-cols-2
+                 gap-14
+                 lg:gap-20
+                 items-center"
+          >
+            {/* ===================================================== */}
+            {/* LEFT SIDE — HERO TEXT */}
+            {/* ===================================================== */}
+
             <ScrollReveal>
               <div>
-                <p className="text-green-300 font-semibold uppercase tracking-widest">
-                  Welcome to EPMS
-                </p>
+                {/* EYEBROW */}
+                <div
+                  className="inline-flex items-center gap-2
+                       px-4 py-2
+                       rounded-full
+                       bg-green-50
+                       dark:bg-green-950/40
+                       border border-green-100
+                       dark:border-green-900/50
+                       shadow-sm"
+                >
+                  <span
+                    className="w-2 h-2
+                         rounded-full
+                         bg-green-500
+                         shadow-[0_0_12px_rgba(34,197,94,0.6)]"
+                  ></span>
 
-                <h1 className="text-4xl md:text-6xl font-bold leading-tight mt-4">
+                  <p
+                    className="text-green-700
+                         dark:text-green-400
+                         font-semibold
+                         text-sm
+                         uppercase
+                         tracking-widest"
+                  >
+                    Welcome to EPMS
+                  </p>
+                </div>
+
+                {/* MAIN HEADING */}
+                <h1
+                  className="text-4xl
+                       md:text-6xl
+                       font-bold
+                       leading-[1.08]
+                       tracking-tight
+                       mt-6
+                       text-gray-950
+                       dark:text-white"
+                >
                   Manage your workforce.
-                  <span className="block text-green-300">
+                  <span
+                    className="block
+                         mt-2
+                         bg-gradient-to-r
+                         from-green-700
+                         via-emerald-500
+                         to-green-600
+                         dark:from-green-400
+                         dark:via-emerald-300
+                         dark:to-green-400
+                         bg-clip-text
+                         text-transparent"
+                  >
                     Simplify your workplace.
                   </span>
                 </h1>
 
-                <p className="text-green-100 text-lg md:text-xl mt-6 leading-relaxed max-w-xl">
+                {/* DESCRIPTION */}
+                <p
+                  className="text-gray-600
+                       dark:text-gray-400
+                       text-lg
+                       md:text-xl
+                       mt-7
+                       leading-relaxed
+                       max-w-xl"
+                >
                   EPMS is a modern Employee Profile Management System designed
                   to help organizations organize, search, view, and manage
                   employee information from one central platform.
                 </p>
 
-                <div className="flex flex-col sm:flex-row gap-4 mt-8">
+                {/* BUTTONS */}
+                <div
+                  className="flex
+                       flex-col
+                       sm:flex-row
+                       gap-4
+                       mt-9"
+                >
+                  {/* GET STARTED */}
                   <Link
                     to="/login"
-                    className="inline-flex items-center justify-center gap-2
-                               bg-white text-green-900 px-6 py-3 rounded-lg
-                               font-semibold hover:bg-green-50
-                               hover:-translate-y-1 transition-all duration-300"
+                    className="group
+                         inline-flex
+                         items-center
+                         justify-center
+                         gap-2
+                         bg-green-700
+                         text-white
+                         px-7
+                         py-3.5
+                         rounded-xl
+                         font-semibold
+                         shadow-lg
+                         shadow-green-700/20
+                         hover:bg-green-800
+                         hover:-translate-y-1
+                         hover:shadow-xl
+                         hover:shadow-green-700/25
+                         transition-all
+                         duration-300"
                   >
                     Get Started
-                    <ArrowRight size={18} />
+                    <ArrowRight
+                      size={18}
+                      className="group-hover:translate-x-1
+                           transition-transform
+                           duration-300"
+                    />
                   </Link>
 
+                  {/* EXPLORE */}
                   <button
-                    className="inline-flex items-center justify-center
-                               border border-green-300 text-white
-                               px-6 py-3 rounded-lg font-semibold
-                               hover:bg-green-800 hover:-translate-y-1
-                               transition-all duration-300"
                     type="button"
                     onClick={() => handleProtectedNavigation("/employees")}
+                    className="inline-flex
+                         items-center
+                         justify-center
+                         gap-2
+                         bg-white
+                         dark:bg-gray-900
+                         text-gray-800
+                         dark:text-gray-100
+                         px-7
+                         py-3.5
+                         rounded-xl
+                         font-semibold
+                         border
+                         border-gray-200
+                         dark:border-gray-700
+                         shadow-sm
+                         hover:border-green-300
+                         dark:hover:border-green-700
+                         hover:text-green-700
+                         dark:hover:text-green-400
+                         hover:-translate-y-1
+                         hover:shadow-lg
+                         transition-all
+                         duration-300"
                   >
                     Explore Employees
                   </button>
                 </div>
+
+                {/* TRUST / QUICK BENEFITS */}
+                <div
+                  className="flex
+                       flex-wrap
+                       items-center
+                       gap-x-6
+                       gap-y-3
+                       mt-9
+                       pt-7
+                       border-t
+                       border-gray-200/80
+                       dark:border-gray-800"
+                >
+                  <div className="flex items-center gap-2">
+                    <span
+                      className="flex items-center justify-center
+                           w-6 h-6
+                           rounded-full
+                           bg-green-100
+                           dark:bg-green-900/40
+                           text-green-600
+                           dark:text-green-400"
+                    >
+                      ✓
+                    </span>
+
+                    <span
+                      className="text-sm
+                           font-medium
+                           text-gray-600
+                           dark:text-gray-400"
+                    >
+                      Easy to use
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <span
+                      className="flex items-center justify-center
+                           w-6 h-6
+                           rounded-full
+                           bg-green-100
+                           dark:bg-green-900/40
+                           text-green-600
+                           dark:text-green-400"
+                    >
+                      ✓
+                    </span>
+
+                    <span
+                      className="text-sm
+                           font-medium
+                           text-gray-600
+                           dark:text-gray-400"
+                    >
+                      Centralized records
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <span
+                      className="flex items-center justify-center
+                           w-6 h-6
+                           rounded-full
+                           bg-green-100
+                           dark:bg-green-900/40
+                           text-green-600
+                           dark:text-green-400"
+                    >
+                      ✓
+                    </span>
+
+                    <span
+                      className="text-sm
+                           font-medium
+                           text-gray-600
+                           dark:text-gray-400"
+                    >
+                      Secure access
+                    </span>
+                  </div>
+                </div>
               </div>
             </ScrollReveal>
 
-            {/* HERO VISUAL */}
-            <ScrollReveal delay={150}>
+            {/* ===================================================== */}
+            {/* RIGHT SIDE — EPMS DASHBOARD PREVIEW */}
+            {/* ===================================================== */}
+
+            <ScrollReveal>
               <div className="relative">
+                {/* OUTER GLOW */}
                 <div
-                  className="absolute -top-10 -right-10 w-40 h-40
-                             bg-green-400/20 rounded-full blur-3xl"
+                  className="absolute
+                       -inset-8
+                       bg-emerald-300/20
+                       dark:bg-emerald-500/10
+                       blur-3xl
+                       rounded-full"
                 ></div>
 
+                {/* DASHBOARD CARD */}
                 <div
-                  className="absolute -bottom-10 -left-10 w-40 h-40
-                             bg-green-300/20 rounded-full blur-3xl"
-                ></div>
-
-                <div
-                  className="relative bg-white/10 backdrop-blur-md
-                             border border-white/20 rounded-3xl p-6
-                             shadow-2xl"
+                  className="relative
+                       bg-white/90
+                       dark:bg-gray-900/90
+                       backdrop-blur-xl
+                       rounded-3xl
+                       border
+                       border-gray-200
+                       dark:border-gray-800
+                       shadow-[0_25px_70px_rgba(0,0,0,0.12)]
+                       dark:shadow-[0_25px_70px_rgba(0,0,0,0.35)]
+                       overflow-hidden"
                 >
-                  {/* MOCK DASHBOARD */}
-                  <div className="bg-white dark:bg-gray-900 rounded-2xl p-5 shadow-xl">
-                    <div className="flex items-center justify-between">
+                  {/* TOP BAR */}
+                  <div
+                    className="flex
+                         items-center
+                         justify-between
+                         px-5
+                         py-4
+                         border-b
+                         border-gray-100
+                         dark:border-gray-800"
+                  >
+                    <div className="flex items-center gap-3">
+                      {/* LOGO */}
+                      <div
+                        className="w-10 h-10
+                             rounded-xl
+                             bg-green-600
+                             flex items-center
+                             justify-center
+                             text-white
+                             font-bold
+                             shadow-lg
+                             shadow-green-600/20"
+                      >
+                        E
+                      </div>
+
                       <div>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">
-                          EPMS Dashboard
+                        <p
+                          className="font-bold
+                               text-gray-900
+                               dark:text-white
+                               text-sm"
+                        >
+                          EPMS
                         </p>
 
-                        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-1">
-                          Workforce Overview
-                        </h2>
+                        <p
+                          className="text-xs
+                               text-gray-400"
+                        >
+                          Employee Management
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* PROFILE */}
+                    <div
+                      className="w-9 h-9
+                           rounded-full
+                           bg-gradient-to-br
+                           from-green-400
+                           to-emerald-700
+                           flex
+                           items-center
+                           justify-center
+                           text-white
+                           text-xs
+                           font-bold"
+                    >
+                      AD
+                    </div>
+                  </div>
+
+                  {/* DASHBOARD CONTENT */}
+                  <div className="p-5 md:p-6">
+                    {/* HEADER */}
+                    <div
+                      className="flex
+                           flex-col
+                           sm:flex-row
+                           sm:items-center
+                           sm:justify-between
+                           gap-4
+                           mb-6"
+                    >
+                      <div>
+                        <p
+                          className="text-xs
+                               uppercase
+                               tracking-wider
+                               font-semibold
+                               text-green-600
+                               dark:text-green-400"
+                        >
+                          Overview
+                        </p>
+
+                        <h3
+                          className="text-xl
+                               md:text-2xl
+                               font-bold
+                               text-gray-900
+                               dark:text-white
+                               mt-1"
+                        >
+                          Employee Dashboard
+                        </h3>
                       </div>
 
                       <div
-                        className="w-11 h-11 bg-green-100
-                                   text-green-700 rounded-xl
-                                   flex items-center justify-center"
+                        className="inline-flex
+                             items-center
+                             gap-2
+                             px-3
+                             py-2
+                             rounded-lg
+                             bg-green-50
+                             dark:bg-green-950/40
+                             text-green-700
+                             dark:text-green-400
+                             text-xs
+                             font-semibold"
                       >
-                        <LayoutDashboard size={22} />
+                        <span
+                          className="w-2 h-2
+                               rounded-full
+                               bg-green-500"
+                        ></span>
+                        System Active
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-3 mt-5">
-                      <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4">
-                        <p className="text-xs text-gray-500 dark:text-gray-400">
-                          Employees
+                    {/* STAT CARDS */}
+                    <div
+                      className="grid
+                           grid-cols-2
+                           gap-3"
+                    >
+                      {/* TOTAL */}
+                      <div
+                        className="rounded-2xl
+                             bg-gray-50
+                             dark:bg-gray-800/70
+                             p-4
+                             border
+                             border-gray-100
+                             dark:border-gray-700"
+                      >
+                        <p
+                          className="text-xs
+                               text-gray-500
+                               dark:text-gray-400"
+                        >
+                          Total Employees
                         </p>
 
-                        <p className="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-1">
-                          120
-                        </p>
+                        <div
+                          className="flex
+                               items-end
+                               justify-between
+                               mt-2"
+                        >
+                          <span
+                            className="text-2xl
+                                 font-bold
+                                 text-gray-900
+                                 dark:text-white"
+                          >
+                            124
+                          </span>
+
+                          <span
+                            className="text-xs
+                                 font-semibold
+                                 text-green-600
+                                 dark:text-green-400"
+                          >
+                            +12%
+                          </span>
+                        </div>
                       </div>
 
-                      <div className="bg-green-50 dark:bg-green-950/40 rounded-xl p-4">
-                        <p className="text-xs text-green-700 dark:text-green-400">
+                      {/* ACTIVE */}
+                      <div
+                        className="rounded-2xl
+                             bg-green-50
+                             dark:bg-green-950/30
+                             p-4
+                             border
+                             border-green-100
+                             dark:border-green-900/50"
+                      >
+                        <p
+                          className="text-xs
+                               text-gray-500
+                               dark:text-gray-400"
+                        >
+                          Active Employees
+                        </p>
+
+                        <div
+                          className="flex
+                               items-end
+                               justify-between
+                               mt-2"
+                        >
+                          <span
+                            className="text-2xl
+                                 font-bold
+                                 text-green-700
+                                 dark:text-green-400"
+                          >
+                            118
+                          </span>
+
+                          <span
+                            className="text-xs
+                                 font-semibold
+                                 text-green-600
+                                 dark:text-green-400"
+                          >
+                            95%
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* RECENT EMPLOYEES */}
+                    <div className="mt-6">
+                      <div
+                        className="flex
+                             items-center
+                             justify-between
+                             mb-3"
+                      >
+                        <h4
+                          className="text-sm
+                               font-bold
+                               text-gray-900
+                               dark:text-white"
+                        >
+                          Recent Employees
+                        </h4>
+
+                        <span
+                          className="text-xs
+                               text-green-600
+                               dark:text-green-400
+                               font-semibold"
+                        >
+                          View all
+                        </span>
+                      </div>
+
+                      {/* EMPLOYEE 1 */}
+                      <div
+                        className="flex
+                             items-center
+                             justify-between
+                             gap-3
+                             p-3
+                             rounded-xl
+                             hover:bg-gray-50
+                             dark:hover:bg-gray-800
+                             transition"
+                      >
+                        <div className="flex items-center gap-3">
+                          <div
+                            className="w-10 h-10
+                                 rounded-full
+                                 bg-gradient-to-br
+                                 from-emerald-400
+                                 to-green-700
+                                 flex
+                                 items-center
+                                 justify-center
+                                 text-white
+                                 text-xs
+                                 font-bold"
+                          >
+                            JD
+                          </div>
+
+                          <div>
+                            <p
+                              className="text-sm
+                                   font-semibold
+                                   text-gray-900
+                                   dark:text-white"
+                            >
+                              John Doe
+                            </p>
+
+                            <p
+                              className="text-xs
+                                   text-gray-500
+                                   dark:text-gray-400"
+                            >
+                              Frontend Developer
+                            </p>
+                          </div>
+                        </div>
+
+                        <span
+                          className="px-2.5
+                               py-1
+                               rounded-full
+                               bg-green-100
+                               dark:bg-green-900/40
+                               text-green-700
+                               dark:text-green-400
+                               text-[10px]
+                               font-bold"
+                        >
                           Active
-                        </p>
-
-                        <p className="text-2xl font-bold text-green-700 dark:text-green-400 mt-1">
-                          96
-                        </p>
+                        </span>
                       </div>
 
-                      <div className="bg-yellow-50 dark:bg-yellow-950/40 rounded-xl p-4">
-                        <p className="text-xs text-yellow-700 dark:text-yellow-400">
+                      {/* EMPLOYEE 2 */}
+                      <div
+                        className="flex
+                             items-center
+                             justify-between
+                             gap-3
+                             p-3
+                             rounded-xl
+                             hover:bg-gray-50
+                             dark:hover:bg-gray-800
+                             transition"
+                      >
+                        <div className="flex items-center gap-3">
+                          <div
+                            className="w-10 h-10
+                                 rounded-full
+                                 bg-gradient-to-br
+                                 from-blue-400
+                                 to-indigo-600
+                                 flex
+                                 items-center
+                                 justify-center
+                                 text-white
+                                 text-xs
+                                 font-bold"
+                          >
+                            JW
+                          </div>
+
+                          <div>
+                            <p
+                              className="text-sm
+                                   font-semibold
+                                   text-gray-900
+                                   dark:text-white"
+                            >
+                              Jane Williams
+                            </p>
+
+                            <p
+                              className="text-xs
+                                   text-gray-500
+                                   dark:text-gray-400"
+                            >
+                              HR Manager
+                            </p>
+                          </div>
+                        </div>
+
+                        <span
+                          className="px-2.5
+                               py-1
+                               rounded-full
+                               bg-green-100
+                               dark:bg-green-900/40
+                               text-green-700
+                               dark:text-green-400
+                               text-[10px]
+                               font-bold"
+                        >
+                          Active
+                        </span>
+                      </div>
+
+                      {/* EMPLOYEE 3 */}
+                      <div
+                        className="flex
+                             items-center
+                             justify-between
+                             gap-3
+                             p-3
+                             rounded-xl
+                             hover:bg-gray-50
+                             dark:hover:bg-gray-800
+                             transition"
+                      >
+                        <div className="flex items-center gap-3">
+                          <div
+                            className="w-10 h-10
+                                 rounded-full
+                                 bg-gradient-to-br
+                                 from-purple-400
+                                 to-purple-700
+                                 flex
+                                 items-center
+                                 justify-center
+                                 text-white
+                                 text-xs
+                                 font-bold"
+                          >
+                            DJ
+                          </div>
+
+                          <div>
+                            <p
+                              className="text-sm
+                                   font-semibold
+                                   text-gray-900
+                                   dark:text-white"
+                            >
+                              David Johnson
+                            </p>
+
+                            <p
+                              className="text-xs
+                                   text-gray-500
+                                   dark:text-gray-400"
+                            >
+                              UI/UX Designer
+                            </p>
+                          </div>
+                        </div>
+
+                        <span
+                          className="px-2.5
+                               py-1
+                               rounded-full
+                               bg-yellow-100
+                               dark:bg-yellow-900/40
+                               text-yellow-700
+                               dark:text-yellow-400
+                               text-[10px]
+                               font-bold"
+                        >
                           On Leave
-                        </p>
-
-                        <p className="text-2xl font-bold text-yellow-700 dark:text-yellow-400 mt-1">
-                          12
-                        </p>
-                      </div>
-
-                      <div className="bg-blue-50 dark:bg-blue-950/40 rounded-xl p-4">
-                        <p className="text-xs text-blue-700 dark:text-blue-400">
-                          Departments
-                        </p>
-
-                        <p className="text-2xl font-bold text-blue-700 dark:text-blue-400 mt-1">
-                          8
-                        </p>
+                        </span>
                       </div>
                     </div>
 
-                    <div className="mt-5">
-                      <div className="flex items-center justify-between">
-                        <p className="text-sm font-semibold text-gray-800 dark:text-gray-200">
-                          Employee Activity
-                        </p>
+                    {/* BOTTOM SEARCH BAR */}
+                    <div
+                      className="mt-5
+                           flex
+                           items-center
+                           gap-3
+                           px-4
+                           py-3
+                           rounded-xl
+                           bg-gray-50
+                           dark:bg-gray-800
+                           border
+                           border-gray-100
+                           dark:border-gray-700"
+                    >
+                      <span className="text-gray-400 text-sm">🔍</span>
 
-                        <BarChart3
-                          size={18}
-                          className="text-green-700 dark:text-green-400"
-                        />
-                      </div>
-
-                      <div className="flex items-end gap-2 h-24 mt-4">
-                        <div className="w-full bg-green-100 rounded-t-lg h-10"></div>
-                        <div className="w-full bg-green-200 rounded-t-lg h-16"></div>
-                        <div className="w-full bg-green-300 rounded-t-lg h-12"></div>
-                        <div className="w-full bg-green-400 rounded-t-lg h-20"></div>
-                        <div className="w-full bg-green-500 rounded-t-lg h-14"></div>
-                        <div className="w-full bg-green-600 rounded-t-lg h-24"></div>
-                        <div className="w-full bg-green-700 rounded-t-lg h-18"></div>
-                      </div>
+                      <span
+                        className="text-xs
+                             text-gray-400"
+                      >
+                        Search employee profiles...
+                      </span>
                     </div>
+                  </div>
+                </div>
+
+                {/* FLOATING STATUS CARD */}
+                <div
+                  className="absolute
+                       -bottom-7
+                       -left-5
+                       md:-left-10
+                       bg-white
+                       dark:bg-gray-900
+                       rounded-2xl
+                       border
+                       border-gray-100
+                       dark:border-gray-800
+                       shadow-xl
+                       px-4
+                       py-3
+                       flex
+                       items-center
+                       gap-3"
+                >
+                  <div
+                    className="w-10 h-10
+                         rounded-xl
+                         bg-green-100
+                         dark:bg-green-900/40
+                         flex
+                         items-center
+                         justify-center
+                         text-green-600
+                         dark:text-green-400
+                         text-lg"
+                  >
+                    ✓
+                  </div>
+
+                  <div>
+                    <p
+                      className="text-xs
+                           text-gray-500
+                           dark:text-gray-400"
+                    >
+                      Employee Records
+                    </p>
+
+                    <p
+                      className="font-bold
+                           text-gray-900
+                           dark:text-white"
+                    >
+                      Organized & Secure
+                    </p>
+                  </div>
+                </div>
+
+                {/* FLOATING EMPLOYEE COUNT */}
+                <div
+                  className="absolute
+                       -top-5
+                       -right-3
+                       md:-right-8
+                       bg-white
+                       dark:bg-gray-900
+                       rounded-2xl
+                       border
+                       border-gray-100
+                       dark:border-gray-800
+                       shadow-xl
+                       px-4
+                       py-3"
+                >
+                  <p
+                    className="text-[10px]
+                         uppercase
+                         tracking-wider
+                         text-gray-400
+                         font-semibold"
+                  >
+                    Employees
+                  </p>
+
+                  <div
+                    className="flex
+                         items-center
+                         gap-2
+                         mt-1"
+                  >
+                    <span
+                      className="text-xl
+                           font-bold
+                           text-gray-900
+                           dark:text-white"
+                    >
+                      124
+                    </span>
+
+                    <span
+                      className="text-xs
+                           font-semibold
+                           text-green-600
+                           dark:text-green-400"
+                    >
+                      ↑ 12%
+                    </span>
                   </div>
                 </div>
               </div>
@@ -291,7 +1068,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
       {/* WHY EPMS */}
       <section className="py-16 md:py-20 bg-gray-50 dark:bg-gray-950">
         <div className="max-w-7xl mx-auto px-6">
@@ -421,7 +1197,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
       {/* HOW IT WORKS */}
       <ScrollReveal>
         <section className="bg-white dark:bg-gray-900 py-16 md:py-20">
@@ -503,7 +1278,6 @@ const Home = () => {
           </div>
         </section>
       </ScrollReveal>
-
       {/* FEATURE HIGHLIGHT */}
       <section className="py-16 md:py-20 bg-gray-50 dark:bg-gray-950">
         <div className="max-w-7xl mx-auto px-6">
@@ -637,7 +1411,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
       {/* CTA */}
       <ScrollReveal>
         <section className="bg-green-900 text-white py-16 md:py-20">
@@ -674,7 +1447,6 @@ const Home = () => {
           </div>
         </section>
       </ScrollReveal>
-
       {/* FOOTER */}
       <footer className="bg-gray-950 text-gray-400 py-8">
         <div className="max-w-7xl mx-auto px-6">
@@ -699,3 +1471,167 @@ const Home = () => {
 };
 
 export default Home;
+
+{
+  /* <section className="bg-gradient-to-br from-green-950 via-green-900 to-green-700 text-white overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 py-20 md:py-28">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+            
+            <ScrollReveal>
+              <div>
+                <p className="text-green-300 font-semibold uppercase tracking-widest">
+                  Welcome to EPMS
+                </p>
+
+                <h1 className="text-4xl md:text-6xl font-bold leading-tight mt-4">
+                  Manage your workforce.
+                  <span className="block text-green-300">
+                    Simplify your workplace.
+                  </span>
+                </h1>
+
+                <p className="text-green-100 text-lg md:text-xl mt-6 leading-relaxed max-w-xl">
+                  EPMS is a modern Employee Profile Management System designed
+                  to help organizations organize, search, view, and manage
+                  employee information from one central platform.
+                </p>
+
+                <div className="flex flex-col sm:flex-row gap-4 mt-8">
+                  <Link
+                    to="/login"
+                    className="inline-flex items-center justify-center gap-2
+                               bg-white text-green-900 px-6 py-3 rounded-lg
+                               font-semibold hover:bg-green-50
+                               hover:-translate-y-1 transition-all duration-300"
+                  >
+                    Get Started
+                    <ArrowRight size={18} />
+                  </Link>
+
+                  <button
+                    className="inline-flex items-center justify-center
+                               border border-green-300 text-white
+                               px-6 py-3 rounded-lg font-semibold
+                               hover:bg-green-800 hover:-translate-y-1
+                               transition-all duration-300"
+                    type="button"
+                    onClick={() => handleProtectedNavigation("/employees")}
+                  >
+                    Explore Employees
+                  </button>
+                </div>
+              </div>
+            </ScrollReveal>
+
+            
+            <ScrollReveal delay={150}>
+              <div className="relative">
+                <div
+                  className="absolute -top-10 -right-10 w-40 h-40
+                             bg-green-400/20 rounded-full blur-3xl"
+                ></div>
+
+                <div
+                  className="absolute -bottom-10 -left-10 w-40 h-40
+                             bg-green-300/20 rounded-full blur-3xl"
+                ></div>
+
+                <div
+                  className="relative bg-white/10 backdrop-blur-md
+                             border border-white/20 rounded-3xl p-6
+                             shadow-2xl"
+                >
+                  
+                  <div className="bg-white dark:bg-gray-900 rounded-2xl p-5 shadow-xl">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          EPMS Dashboard
+                        </p>
+
+                        <h2 className="text-xl font-bold text-gray-900 dark:text-gray-100 mt-1">
+                          Workforce Overview
+                        </h2>
+                      </div>
+
+                      <div
+                        className="w-11 h-11 bg-green-100
+                                   text-green-700 rounded-xl
+                                   flex items-center justify-center"
+                      >
+                        <LayoutDashboard size={22} />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3 mt-5">
+                      <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4">
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          Employees
+                        </p>
+
+                        <p className="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-1">
+                          120
+                        </p>
+                      </div>
+
+                      <div className="bg-green-50 dark:bg-green-950/40 rounded-xl p-4">
+                        <p className="text-xs text-green-700 dark:text-green-400">
+                          Active
+                        </p>
+
+                        <p className="text-2xl font-bold text-green-700 dark:text-green-400 mt-1">
+                          96
+                        </p>
+                      </div>
+
+                      <div className="bg-yellow-50 dark:bg-yellow-950/40 rounded-xl p-4">
+                        <p className="text-xs text-yellow-700 dark:text-yellow-400">
+                          On Leave
+                        </p>
+
+                        <p className="text-2xl font-bold text-yellow-700 dark:text-yellow-400 mt-1">
+                          12
+                        </p>
+                      </div>
+
+                      <div className="bg-blue-50 dark:bg-blue-950/40 rounded-xl p-4">
+                        <p className="text-xs text-blue-700 dark:text-blue-400">
+                          Departments
+                        </p>
+
+                        <p className="text-2xl font-bold text-blue-700 dark:text-blue-400 mt-1">
+                          8
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="mt-5">
+                      <div className="flex items-center justify-between">
+                        <p className="text-sm font-semibold text-gray-800 dark:text-gray-200">
+                          Employee Activity
+                        </p>
+
+                        <BarChart3
+                          size={18}
+                          className="text-green-700 dark:text-green-400"
+                        />
+                      </div>
+
+                      <div className="flex items-end gap-2 h-24 mt-4">
+                        <div className="w-full bg-green-100 rounded-t-lg h-10"></div>
+                        <div className="w-full bg-green-200 rounded-t-lg h-16"></div>
+                        <div className="w-full bg-green-300 rounded-t-lg h-12"></div>
+                        <div className="w-full bg-green-400 rounded-t-lg h-20"></div>
+                        <div className="w-full bg-green-500 rounded-t-lg h-14"></div>
+                        <div className="w-full bg-green-600 rounded-t-lg h-24"></div>
+                        <div className="w-full bg-green-700 rounded-t-lg h-18"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
+        </div>
+      </section> */
+}
