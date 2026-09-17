@@ -20,7 +20,7 @@ const employeeData = [
     status: "Active",
     email: "jane.williams@email.com",
     phone: "+234 802 345 6789",
-    image: "/images/jane.jpg",
+    image: avatar,
   },
 
   {
@@ -31,7 +31,7 @@ const employeeData = [
     status: "On Leave",
     email: "david.johnson@email.com",
     phone: "+234 803 456 7890",
-    image: "/images/david.jpg",
+    image: avatar,
   },
 ];
 

@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import ScrollReveal from "../components/ScrollReveal";
 import { Link, useNavigate } from "react-router-dom";
@@ -12,24 +11,9 @@ import {
   BarChart3,
   ArrowRight,
   CheckCircle,
-  Moon,
-  Sun,
 } from "lucide-react";
 
 const Home = () => {
-  const [darkMode, setDarkMode] = useState(() => {
-    return localStorage.getItem("epmsDarkMode") === "true";
-  });
-
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("epmsDarkMode", "true");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("epmsDarkMode", "false");
-    }
-  }, [darkMode]);
   const navigate = useNavigate();
 
   const handleProtectedNavigation = (path) => {
@@ -49,24 +33,6 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 transition-colors duration-300">
       <Navbar />
-
-      {/* THEME TOGGLE */}
-      <button
-        type="button"
-        onClick={() => setDarkMode(!darkMode)}
-        className="fixed top-24 right-5 z-40
-                   p-2.5 rounded-full
-                   bg-white dark:bg-gray-800
-                   border border-gray-200 dark:border-gray-700
-                   text-gray-600 dark:text-gray-300
-                   hover:bg-green-50 dark:hover:bg-gray-700
-                   hover:text-green-700 dark:hover:text-green-400
-                   shadow-sm transition-all duration-200"
-        aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
-        title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
-      >
-        {darkMode ? <Sun size={20} /> : <Moon size={20} />}
-      </button>
 
       {/* HERO SECTION */}
       <section className="bg-gradient-to-br from-green-950 via-green-900 to-green-700 text-white overflow-hidden">
@@ -357,7 +323,7 @@ const Home = () => {
                            transition-all duration-500"
               >
                 <div
-                  className="w-13 h-13 w-14 h-14 bg-green-100 dark:bg-green-950/50
+                  className="w-14 h-14 bg-green-100 dark:bg-green-950/50
                              text-green-700 dark:text-green-400 rounded-xl
                              flex items-center justify-center"
                 >
