@@ -1,16 +1,32 @@
-# React + Vite
+# EPMS — Employee Profile Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React 19 / Vite 8 / Tailwind CSS 4. This project is an **employee management system** with an employee directory, editing tools, administrative screens and browser-local data persistence.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Home, About, Features, employee directory, responsive employee profiles and management dashboard.
+- Add, edit and delete employee records; replace/remove profile pictures, with client-side image compression.
+- Employee details: name, email, phone, position, department, status, hire date, DOB, manager, address, emergency contact name/phone, employment type.
+- CSV export/import, JSON export, duplicate-email detection and import row checks. Import adds new employees; it skips email duplicates rather than overwriting them. Photos are not contained in CSV exports.
+- Configurable departments. Removing a department with assigned employees is disabled; renaming it updates employee records.
+- Five dashboard counters including Inactive; managed department count; search and filters.
+- Browser-local activity history: who (the logged-in account), when, operation and changed fields (selected fields include before/after). Export activity as JSON.
+- Administrators can create additional browser-local admin accounts or remove other created admins. All accounts created by this version use PBKDF2 salted password hashes; existing plaintext demo accounts are upgraded on successful sign-in.
+- User profile/settings page and unified dark-mode toggle.
+- Clickable logo links to Home for guests and signed-in users.
 
-## React Compiler
+## Run on desktop
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Use a compatible Node version (Node 20.19+ or 22.12+ recommended):
 
-## Expanding the ESLint configuration
+```bash
+npm ci
+npm run dev
+npm test
+npm run lint
+npm run build
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Import format
+
+CSV headers: `id,name,email,phone,position,department,status,hireDate,dateOfBirth,manager,address,emergencyContactName,emergencyContactPhone,employmentType`. The required headers are `name,email,position,department`. Dates use `YYYY-MM-DD`. Export CSV first to get a working template. Existing records are never overwritten during import; email duplicates are skipped.
